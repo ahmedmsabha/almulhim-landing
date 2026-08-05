@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState } from "react";
 import { Play } from "@phosphor-icons/react";
 import { motion, useReducedMotion } from "motion/react";
+import { CoverImage } from "@/components/CoverImage";
 import { LessonPlayerDialog } from "@/components/LessonPlayerDialog";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/badge";
@@ -144,7 +144,7 @@ export function PreviewLessons({ lessons, loadError = false }: Props) {
                 <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {group.items.map((lesson, index) => {
                     const duration = formatDuration(lesson.totalDurationSeconds);
-                    const cover = pickCover(lesson.id);
+                    const cover = lesson.coverUrl || pickCover(lesson.id);
                     return (
                       <li key={lesson.id}>
                         <motion.div
@@ -158,10 +158,8 @@ export function PreviewLessons({ lessons, loadError = false }: Props) {
                             onClick={() => void openLesson(lesson)}
                           >
                             <div className="relative aspect-[16/10] overflow-hidden sm:aspect-[16/10]">
-                              <Image
+                              <CoverImage
                                 src={cover}
-                                alt=""
-                                fill
                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                 className="object-cover transition-transform duration-500 group-hover:scale-105 group-active:scale-105"
                               />

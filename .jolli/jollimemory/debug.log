@@ -206,3 +206,136 @@
 [2026-08-05T08:54:19.796Z] INFO  [skills] detectSkills found 0 active (0 in registry)
 [2026-08-05T08:54:19.796Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
 [2026-08-05T08:54:29.264Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=6, summaries=1, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=false/undefined
+[2026-08-05T08:55:04.059Z] INFO  [PrepareMsgHook] === Prepare-commit-msg hook started (source: message) ===
+[2026-08-05T08:55:04.083Z] INFO  [PrepareMsgHook] === Prepare-commit-msg hook finished ===
+[2026-08-05T08:55:04.215Z] INFO  [PostCommitHook] [trace=05fd4bba1785426e76454ffb5be016d2] Detected operation: commit
+[2026-08-05T08:55:04.244Z] INFO  [PostCommitHook] [trace=05fd4bba1785426e76454ffb5be016d2] Enqueued: type=commit hash=00c202f5
+[2026-08-05T08:55:04.244Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Launching background worker
+[2026-08-05T08:55:04.246Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Background worker spawned (PID: 11675)
+[2026-08-05T08:55:04.354Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] === Queue worker started === node=22.14.0 kind=vscode-plugin source=cursor pkgVer=0.99.10 cliVer=0.99.10 dist=/Users/ahmedsabha/.cursor/extensions/jolli.jollimemory-vscode-0.99.10-universal/dist
+[2026-08-05T08:55:04.357Z] INFO  [StorageFactory] [trace=05fd4bba1785426e76454ffb5be016d2] StorageFactory.create: storageMode=dual-write, projectPath=/Users/ahmedsabha/MyLife/programming/web/MyPortfolioApps/almulhim/almulhim-landing
+[2026-08-05T08:55:04.379Z] INFO  [StorageFactory] [trace=05fd4bba1785426e76454ffb5be016d2] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-08-05T08:55:04.381Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Processing queue entry: type=commit hash=00c202f5
+[2026-08-05T08:55:04.392Z] INFO  [GitOps] [trace=05fd4bba1785426e76454ffb5be016d2] Commit 00c202f5: responsiveness
+[2026-08-05T08:55:04.392Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Commit: 00c202f5 - responsiveness (9ms)
+[2026-08-05T08:55:04.744Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Discovered 5 Cursor session(s)
+[2026-08-05T08:55:04.770Z] INFO  [CursorTranscriptReader] [trace=05fd4bba1785426e76454ffb5be016d2] Read Cursor session 5197b789: 0 new bubbles, 0 entries extracted (index 48→48)
+[2026-08-05T08:55:04.771Z] INFO  [CursorTranscriptReader] [trace=05fd4bba1785426e76454ffb5be016d2] Read Cursor session c4c905ad: 0 new bubbles, 0 entries extracted (index 36→36)
+[2026-08-05T08:55:04.772Z] INFO  [CursorTranscriptReader] [trace=05fd4bba1785426e76454ffb5be016d2] Read Cursor session 71aeffc4: 0 new bubbles, 0 entries extracted (index 9→9)
+[2026-08-05T08:55:04.773Z] INFO  [CursorTranscriptReader] [trace=05fd4bba1785426e76454ffb5be016d2] Read Cursor session 38dfa837: 0 new bubbles, 0 entries extracted (index 36→36)
+[2026-08-05T08:55:04.778Z] INFO  [CursorTranscriptReader] [trace=05fd4bba1785426e76454ffb5be016d2] Read Cursor session 0f7d3070: 56 new bubbles, 4 entries extracted (index 93→149)
+[2026-08-05T08:55:04.778Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Transcript source: session=0f7d3070-ac69-4870-b515-5d0b40c4a659, lines=93→149, entries=4
+[2026-08-05T08:55:04.807Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Git diff: 23 files changed, +326 -87 (28ms)
+[2026-08-05T08:55:04.845Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Prompt blocks: plans=0 notes=0 references=0 (+0 track-only archived, not prompted) (AI soft-excluded 0)
+[2026-08-05T08:55:04.846Z] INFO  [Summarizer] [trace=05fd4bba1785426e76454ffb5be016d2] Generating summary for commit 00c202f5
+[2026-08-05T08:55:04.846Z] INFO  [Summarizer] [trace=05fd4bba1785426e76454ffb5be016d2] Context: transcript=4, files=23, lines=326+87
+[2026-08-05T08:55:04.846Z] WARN  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] First API attempt failed: No LLM provider available. Set an Anthropic API key (ANTHROPIC_API_KEY) or configure a Jolli Space API key (jolliApiKey).. Retrying in 2000ms...
+[2026-08-05T08:55:06.847Z] INFO  [Summarizer] [trace=05fd4bba1785426e76454ffb5be016d2] Generating summary for commit 00c202f5
+[2026-08-05T08:55:06.848Z] INFO  [Summarizer] [trace=05fd4bba1785426e76454ffb5be016d2] Context: transcript=4, files=23, lines=326+87
+[2026-08-05T08:55:06.848Z] ERROR [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] API call failed after retry: No LLM provider available. Set an Anthropic API key (ANTHROPIC_API_KEY) or configure a Jolli Space API key (jolliApiKey).
+[2026-08-05T08:55:06.848Z] WARN  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Saving summary with empty topics + llm-failed marker for commit 00c202f5
+[2026-08-05T08:55:06.848Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] API summary generated (2.0s)
+[2026-08-05T08:55:06.848Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Plan registry scan: found 0 uncommitted slug(s) on master: []
+[2026-08-05T08:55:06.848Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Plan association: detected 0 slug(s) from transcripts: []
+[2026-08-05T08:55:06.848Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Note registry scan: found 0 uncommitted note(s) on master: []
+[2026-08-05T08:55:06.849Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Note association: detected 0 note(s): []
+[2026-08-05T08:55:06.849Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Reference association: detected 0 ref(s) for branch master
+[2026-08-05T08:55:06.850Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Summary built for 00c202f5: recap=no, topics=0, plans=absent, notes=absent, references=absent
+[2026-08-05T08:55:06.946Z] INFO  [GitOps] [trace=05fd4bba1785426e76454ffb5be016d2] Updated branch 'jollimemory/summaries/v3': 4 written, 0 deleted (via fast-import)
+[2026-08-05T08:55:06.972Z] INFO  [MetadataManager] [trace=05fd4bba1785426e76454ffb5be016d2] Manifest updated: master/responsiveness-00c202f5.md (commit)
+[2026-08-05T08:55:06.972Z] INFO  [FolderStorage] [trace=05fd4bba1785426e76454ffb5be016d2] Markdown generated: master/responsiveness-00c202f5.md
+[2026-08-05T08:55:06.973Z] INFO  [FolderStorage] [trace=05fd4bba1785426e76454ffb5be016d2] Wrote 4 files, deleted 0 (Add summary for 00c202f5: responsiveness)
+[2026-08-05T08:55:06.973Z] INFO  [SummaryStore] [trace=05fd4bba1785426e76454ffb5be016d2] Summary stored successfully for commit 00c202f5
+[2026-08-05T08:55:06.975Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Summary stored successfully for commit 00c202f5 (125ms, 0 plans, 0 notes, 0 references)
+[2026-08-05T08:55:06.975Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] === Pipeline completed in 2.6s ===
+[2026-08-05T08:55:06.975Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] === Summary content (0 topics) ===
+[2026-08-05T08:55:06.987Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Processed 1 queue entries
+[2026-08-05T08:55:06.989Z] INFO  [SessionTracker] [trace=05fd4bba1785426e76454ffb5be016d2] Enqueued queue operation: type=ingest tag=ingest file=1785920106989-00000001-f265cb9d-ingest.json
+[2026-08-05T08:55:06.990Z] INFO  [PushExecutor] [trace=05fd4bba1785426e76454ffb5be016d2] Post-queue push trigger: scheduling drain for 1 newly generated summar(ies)
+[2026-08-05T08:55:06.991Z] INFO  [PushExecutor] [trace=05fd4bba1785426e76454ffb5be016d2] processPushPending(post-queue): 1 pending entr(ies) (filtered to 1 hash(es))
+[2026-08-05T08:55:06.992Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] === Queue worker finished ===
+[2026-08-05T08:55:06.994Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] Processing queue entry: type=ingest triggeredBy=post-commit
+[2026-08-05T08:55:06.994Z] INFO  [QueueWorker] [trace=05fd4bba1785426e76454ffb5be016d2] No API key configured — skipping ingest (post-commit)
+[2026-08-05T08:55:07.086Z] INFO  [PushExecutor] [trace=05fd4bba1785426e76454ffb5be016d2] processPushPending(post-queue): not signed in — keeping 1 entries for later
+[2026-08-05T08:55:07.164Z] INFO  [notes] detectNotes found 0 notes (0 in registry)
+[2026-08-05T08:55:07.165Z] INFO  [plans] detectPlans found 0 plans (0 in registry)
+[2026-08-05T08:55:07.165Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-08-05T08:55:07.165Z] INFO  [skills] detectSkills found 0 active (0 in registry)
+[2026-08-05T08:55:07.254Z] INFO  [SidebarWebviewProvider] pushMemories: 4 item(s)
+[2026-08-05T08:55:10.055Z] INFO  [SidebarWebviewProvider] pushCommits: 1 item(s), mode=single
+[2026-08-05T08:55:10.061Z] INFO  [CursorTranscriptReader] Read Cursor session 5197b789: 0 new bubbles, 0 entries extracted (index 48→48)
+[2026-08-05T08:55:10.061Z] INFO  [CursorTranscriptReader] Read Cursor session c4c905ad: 0 new bubbles, 0 entries extracted (index 36→36)
+[2026-08-05T08:55:10.062Z] INFO  [CursorTranscriptReader] Read Cursor session 71aeffc4: 0 new bubbles, 0 entries extracted (index 9→9)
+[2026-08-05T08:55:10.063Z] INFO  [CursorTranscriptReader] Read Cursor session 0f7d3070: 0 new bubbles, 0 entries extracted (index 149→149)
+[2026-08-05T08:55:10.063Z] INFO  [CursorTranscriptReader] Read Cursor session 38dfa837: 0 new bubbles, 0 entries extracted (index 36→36)
+[2026-08-05T08:55:12.478Z] INFO  [PrePushHook] [trace=2e95bd24d87783d3e26e9bfba167d0f7] pre-push hook: remote=origin budget=3000ms
+[2026-08-05T08:55:12.500Z] INFO  [PushPendingStore] [trace=2e95bd24d87783d3e26e9bfba167d0f7] Enqueued 1 new push-pending entries (branch=master)
+[2026-08-05T08:55:12.501Z] INFO  [PrePushHook] [trace=2e95bd24d87783d3e26e9bfba167d0f7] pre-push: recorded 1 commit(s) across 1 pushed ref(s)
+[2026-08-05T08:55:12.509Z] INFO  [PrePushHook] [trace=2e95bd24d87783d3e26e9bfba167d0f7] Recorded 1 commit(s) for later sync — not signed in to Jolli
+[2026-08-05T08:55:12.509Z] INFO  [StorageFactory] [trace=2e95bd24d87783d3e26e9bfba167d0f7] StorageFactory.create: storageMode=dual-write, projectPath=/Users/ahmedsabha/MyLife/programming/web/MyPortfolioApps/almulhim/almulhim-landing
+[2026-08-05T08:55:12.532Z] INFO  [StorageFactory] [trace=2e95bd24d87783d3e26e9bfba167d0f7] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-08-05T09:01:12.177Z] INFO  [StopHook] Stop hook triggered (session=0f7d3070-ac69-4870-b515-5d0b40c4a659)
+[2026-08-05T09:01:12.202Z] INFO  [StopHook] Hook input — session_id=0f7d3070-ac69-4870-b515-5d0b40c4a659, transcript_path=/Users/ahmedsabha/.cursor/projects/Users-ahmedsabha-MyLife-programming-web-MyPortfolioApps-almulhim-almulhim-landing/agent-transcripts/0f7d3070-ac69-4870-b515-5d0b40c4a659/0f7d3070-ac69-4870-b515-5d0b40c4a659.jsonl
+[2026-08-05T09:01:12.205Z] INFO  [StopHook] Session saved successfully
+[2026-08-05T09:01:12.369Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-05T09:01:12.370Z] INFO  [plans] detectPlans found 0 plans (0 in registry)
+[2026-08-05T09:01:12.370Z] INFO  [notes] detectNotes found 0 notes (0 in registry)
+[2026-08-05T09:01:12.370Z] INFO  [skills] detectSkills found 0 active (0 in registry)
+[2026-08-05T09:01:12.370Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-08-05T09:01:26.365Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=6, summaries=2, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=false/undefined
+[2026-08-05T09:16:42.587Z] INFO  [activate] Activating JolliMemory extension {"workspaceRoot":"/Users/ahmedsabha/MyLife/programming/web/MyPortfolioApps/almulhim/almulhim-landing","extensionPath":"/Users/ahmedsabha/.cursor/extensions/jolli.jollimemory-vscode-0.99.10-universal"}
+[2026-08-05T09:16:42.713Z] INFO  [initialLoad] Loading all panels
+[2026-08-05T09:16:42.844Z] INFO  [plans] detectPlans found 0 plans (0 in registry)
+[2026-08-05T09:16:42.844Z] INFO  [notes] detectNotes found 0 notes (0 in registry)
+[2026-08-05T09:16:42.844Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-08-05T09:16:42.844Z] INFO  [skills] detectSkills found 0 active (0 in registry)
+[2026-08-05T09:16:42.946Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/ahmedsabha/MyLife/programming/web/MyPortfolioApps/almulhim/almulhim-landing
+[2026-08-05T09:16:43.038Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-08-05T09:16:43.044Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-05T09:16:43.045Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-05T09:16:44.429Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/ahmedsabha/MyLife/programming/web/MyPortfolioApps/almulhim/almulhim-landing
+[2026-08-05T09:16:44.458Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-08-05T09:16:44.471Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/ahmedsabha/MyLife/programming/web/MyPortfolioApps/almulhim/almulhim-landing
+[2026-08-05T09:16:44.496Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-08-05T09:16:44.511Z] INFO  [bridge] Merged mode activated {"branch":"master","creationPoint":"cabf3f89","author":"Ahmed Abu Sabha"}
+[2026-08-05T09:16:44.684Z] INFO  [SchemaV5Migration] Found 2 summary files to inspect
+[2026-08-05T09:16:44.693Z] INFO  [SchemaV5Migration] Reading 2 summaries...
+[2026-08-05T09:16:44.705Z] INFO  [SchemaV5Migration] Read 2 summaries in 12 ms
+[2026-08-05T09:16:44.705Z] INFO  [SchemaV5Migration] Writing 2 summary file(s) via active storage...
+[2026-08-05T09:17:05.403Z] INFO  [GitOps] Updated branch 'jollimemory/summaries/v3': 2 written, 0 deleted (via fast-import)
+[2026-08-05T09:17:05.406Z] INFO  [MetadataManager] Manifest updated: master/responsiveness-00c202f5.md (commit)
+[2026-08-05T09:17:05.406Z] INFO  [FolderStorage] Markdown generated: master/responsiveness-00c202f5.md
+[2026-08-05T09:17:05.408Z] INFO  [MetadataManager] Manifest updated: master/enhancing-design-60fd2c1c.md (commit)
+[2026-08-05T09:17:05.408Z] INFO  [FolderStorage] Markdown generated: master/enhancing-design-60fd2c1c.md
+[2026-08-05T09:17:05.408Z] INFO  [FolderStorage] Wrote 2 files, deleted 0 (Schema v5 migration: re-pushing 2 v5 summaries to heal storage shadow)
+[2026-08-05T09:17:05.526Z] INFO  [GitOps] Updated branch 'jollimemory/summaries/v3': 1 written, 0 deleted (via fast-import)
+[2026-08-05T09:17:05.526Z] INFO  [FolderStorage] Wrote 1 files, deleted 0 (Schema v5 migration: re-pushing 2 v5 summaries to heal storage shadow)
+[2026-08-05T09:17:05.526Z] INFO  [SchemaV5Migration] Schema v5 migration complete: 0 migrated, 2 skipped, fresh=false, recovery=true (took 20821 ms)
+[2026-08-05T09:17:05.526Z] INFO  [SchemaV5Migration] Pre-migration orphan-branch SHA was 727b4e3e7f49190299d017b6175616fff9f6fc37 (debug-only recovery anchor)
+[2026-08-05T09:17:05.535Z] INFO  [activate] Schema v5 migration: alreadyDone=false fresh=false migrated=0 skipped=2
+[2026-08-05T09:17:05.564Z] INFO  [MigrationEngine] === Migration started ===
+[2026-08-05T09:17:05.638Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=6, summaries=2, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=false/undefined
+[2026-08-05T09:17:05.643Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-05T09:17:05.644Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=6, summaries=2, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=false/undefined
+[2026-08-05T09:17:05.644Z] INFO  [initialLoad] All panels loaded — updating status bar
+[2026-08-05T09:17:05.644Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-05T09:17:05.691Z] INFO  [FolderStorage] Wrote 1 files, deleted 0 (Migration: copy index)
+[2026-08-05T09:17:05.692Z] INFO  [MigrationEngine] === Migration completed: 0 migrated, 2 skipped, 0 failed ===
+[2026-08-05T09:17:05.692Z] INFO  [MigrationEngine] === 0.99.2 head-regen (one-shot) started ===
+[2026-08-05T09:17:05.692Z] INFO  [MigrationEngine] Head regenerate: regenerated=2 skipped=0 failed=0
+[2026-08-05T09:17:05.692Z] INFO  [MigrationEngine] Stale-child sweep: deleted=0 failed=0
+[2026-08-05T09:17:05.693Z] INFO  [activate] KB auto-migration: completed (2/2)
+[2026-08-05T09:17:05.812Z] INFO  [PrePushWorker] [trace=59dc1131209c1dfb53a66feb73f54edf] PrePushWorker(vscode-activation): spawned compensation drain starting
+[2026-08-05T09:17:05.813Z] INFO  [PushExecutor] [trace=59dc1131209c1dfb53a66feb73f54edf] processPushPending(activation): 2 pending entr(ies)
+[2026-08-05T09:17:05.829Z] INFO  [PushExecutor] [trace=59dc1131209c1dfb53a66feb73f54edf] processPushPending(activation): not signed in — keeping 2 entries for later
+[2026-08-05T09:17:05.829Z] INFO  [PrePushWorker] [trace=59dc1131209c1dfb53a66feb73f54edf] PrePushWorker(vscode-activation): drain done — attempted=0 pushed=0 failed=0 (not signed in)
+[2026-08-05T09:17:23.612Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=6, summaries=2, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=false/undefined
+[2026-08-05T09:17:23.614Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/ahmedsabha/MyLife/programming/web/MyPortfolioApps/almulhim/almulhim-landing
+[2026-08-05T09:17:23.635Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-08-05T09:17:23.635Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-05T09:17:23.638Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=6, summaries=2, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=false/undefined
+[2026-08-05T09:17:23.639Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/ahmedsabha/MyLife/programming/web/MyPortfolioApps/almulhim/almulhim-landing
+[2026-08-05T09:17:23.660Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-08-05T09:17:23.690Z] INFO  [StorageFactory] StorageFactory.create: storageMode=dual-write, projectPath=/Users/ahmedsabha/MyLife/programming/web/MyPortfolioApps/almulhim/almulhim-landing
+[2026-08-05T09:17:23.711Z] INFO  [StorageFactory] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-08-05T09:17:32.617Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=6, summaries=2, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=false/undefined

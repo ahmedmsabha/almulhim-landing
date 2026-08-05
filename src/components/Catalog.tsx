@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { Lock, Play } from "@phosphor-icons/react";
+import { CoverImage } from "@/components/CoverImage";
 import { LessonPlayerDialog } from "@/components/LessonPlayerDialog";
 import { Reveal } from "@/components/motion/Reveal";
 import {
@@ -119,10 +119,8 @@ export function Catalog({ units, loadError = false }: Props) {
                   <div className="flex flex-col sm:flex-row sm:items-stretch">
                     {/* Mobile: full-bleed banner; desktop: side strip */}
                     <div className="relative h-28 w-full shrink-0 overflow-hidden sm:h-auto sm:w-36 sm:min-h-[7.5rem]">
-                      <Image
-                        src={pickCover(unit.id)}
-                        alt=""
-                        fill
+                      <CoverImage
+                        src={unit.coverUrl || pickCover(unit.id)}
                         sizes="(max-width: 640px) 100vw, 144px"
                         className="object-cover"
                       />

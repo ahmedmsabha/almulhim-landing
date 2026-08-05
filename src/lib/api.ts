@@ -19,6 +19,7 @@ export type PublicPreviewLesson = {
   videoCount: number;
   totalDurationSeconds: number | null;
   primaryVideoId: string | null;
+  coverUrl?: string | null;
 };
 
 export type PublicPreviewLessonDetail = PublicPreviewLesson & {
@@ -40,6 +41,7 @@ export type PublicCatalogLesson = {
   isLocked: boolean;
   videoCount: number;
   pdfCount: number;
+  coverUrl?: string | null;
 };
 
 export type PublicCatalogChapter = {
@@ -54,6 +56,7 @@ export type PublicCatalogUnit = {
   title: string;
   description: string | null;
   sortOrder: number;
+  coverUrl?: string | null;
   chapters: PublicCatalogChapter[];
 };
 
