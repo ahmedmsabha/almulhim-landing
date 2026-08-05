@@ -50,8 +50,8 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="border-b border-border py-16 sm:py-20">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-2">
+    <section id="contact" className="border-b border-border py-12 sm:py-20">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-2">
         <Reveal>
           <p className="text-label-md uppercase text-primary">تواصل معنا</p>
           <h2 className="text-headline-md mt-2 text-foreground">
@@ -90,7 +90,7 @@ export function Contact() {
         <Reveal delay={0.08}>
           <form
             onSubmit={(event) => void onSubmit(event)}
-            className="rounded-xl border border-border bg-card p-6 shadow-sm"
+            className="rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6"
           >
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">

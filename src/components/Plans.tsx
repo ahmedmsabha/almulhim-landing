@@ -31,7 +31,7 @@ export function Plans({ plans, loadError = false }: Props) {
   return (
     <section
       id="plans"
-      className="border-b border-border bg-navy py-16 text-inverse-on-surface sm:py-20"
+      className="border-b border-border bg-navy py-12 text-inverse-on-surface sm:py-20"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
@@ -64,7 +64,7 @@ export function Plans({ plans, loadError = false }: Props) {
             </Button>
           </div>
         ) : (
-          <ul className="mx-auto mt-10 grid max-w-4xl gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="mx-auto mt-8 grid max-w-4xl gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
             {plans.map((plan, index) => {
               const featured = index === Math.min(1, plans.length - 1);
               return (

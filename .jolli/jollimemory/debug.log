@@ -113,3 +113,96 @@
 [2026-08-05T08:38:34.826Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
 [2026-08-05T08:38:34.826Z] INFO  [skills] detectSkills found 0 active (0 in registry)
 [2026-08-05T08:38:44.073Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=6, summaries=0, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=false/undefined
+[2026-08-05T08:39:13.323Z] INFO  [PrepareMsgHook] === Prepare-commit-msg hook started (source: message) ===
+[2026-08-05T08:39:13.347Z] INFO  [PrepareMsgHook] === Prepare-commit-msg hook finished ===
+[2026-08-05T08:39:13.890Z] INFO  [PostCommitHook] [trace=f6afcb85d14397a5a5696b65e85e51d3] Detected operation: commit
+[2026-08-05T08:39:13.905Z] INFO  [PostCommitHook] [trace=f6afcb85d14397a5a5696b65e85e51d3] Enqueued: type=commit hash=60fd2c1c
+[2026-08-05T08:39:13.906Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Launching background worker
+[2026-08-05T08:39:13.907Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Background worker spawned (PID: 96367)
+[2026-08-05T08:39:13.992Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] === Queue worker started === node=22.14.0 kind=vscode-plugin source=cursor pkgVer=0.99.10 cliVer=0.99.10 dist=/Users/ahmedsabha/.cursor/extensions/jolli.jollimemory-vscode-0.99.10-universal/dist
+[2026-08-05T08:39:13.995Z] INFO  [StorageFactory] [trace=f6afcb85d14397a5a5696b65e85e51d3] StorageFactory.create: storageMode=dual-write, projectPath=/Users/ahmedsabha/MyLife/programming/web/MyPortfolioApps/almulhim/almulhim-landing
+[2026-08-05T08:39:14.018Z] INFO  [StorageFactory] [trace=f6afcb85d14397a5a5696b65e85e51d3] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-08-05T08:39:14.020Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Processing queue entry: type=commit hash=60fd2c1c
+[2026-08-05T08:39:14.031Z] INFO  [GitOps] [trace=f6afcb85d14397a5a5696b65e85e51d3] Commit 60fd2c1c: enhancing design
+[2026-08-05T08:39:14.031Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Commit: 60fd2c1c - enhancing design (9ms)
+[2026-08-05T08:39:23.578Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Discovered 5 Cursor session(s)
+[2026-08-05T08:39:23.611Z] INFO  [CursorTranscriptReader] [trace=f6afcb85d14397a5a5696b65e85e51d3] Read Cursor session 5197b789: 48 new bubbles, 10 entries extracted (index 0→48)
+[2026-08-05T08:39:23.611Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Transcript source: session=5197b789-a314-4e3f-8f2e-2797ec750b99, lines=0→48, entries=10
+[2026-08-05T08:39:23.616Z] INFO  [CursorTranscriptReader] [trace=f6afcb85d14397a5a5696b65e85e51d3] Read Cursor session c4c905ad: 36 new bubbles, 4 entries extracted (index 0→36)
+[2026-08-05T08:39:23.616Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Transcript source: session=c4c905ad-d4c7-4e86-9ff7-942aade37d0f, lines=0→36, entries=4
+[2026-08-05T08:39:23.617Z] INFO  [CursorTranscriptReader] [trace=f6afcb85d14397a5a5696b65e85e51d3] Read Cursor session 71aeffc4: 9 new bubbles, 2 entries extracted (index 0→9)
+[2026-08-05T08:39:23.617Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Transcript source: session=71aeffc4-a2cd-478d-b759-d62c6b23b127, lines=0→9, entries=2
+[2026-08-05T08:39:23.620Z] INFO  [CursorTranscriptReader] [trace=f6afcb85d14397a5a5696b65e85e51d3] Read Cursor session 38dfa837: 36 new bubbles, 2 entries extracted (index 0→36)
+[2026-08-05T08:39:23.620Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Transcript source: session=38dfa837-1a80-45c8-aee8-d659e339f6bd, lines=0→36, entries=2
+[2026-08-05T08:39:23.625Z] INFO  [CursorTranscriptReader] [trace=f6afcb85d14397a5a5696b65e85e51d3] Read Cursor session 0f7d3070: 93 new bubbles, 12 entries extracted (index 0→93)
+[2026-08-05T08:39:23.625Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Transcript source: session=0f7d3070-ac69-4870-b515-5d0b40c4a659, lines=0→93, entries=12
+[2026-08-05T08:39:23.667Z] WARN  [GitOps] [trace=f6afcb85d14397a5a5696b65e85e51d3] Diff exceeds 150000-char budget (429388 chars) — prepending --stat file list and truncating body
+[2026-08-05T08:39:23.685Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Git diff: 38 files changed, +8615 -1614 (58ms)
+[2026-08-05T08:39:23.744Z] WARN  [GitOps] [trace=f6afcb85d14397a5a5696b65e85e51d3] Diff exceeds 60000-char budget (429388 chars) — prepending --stat file list and truncating body
+[2026-08-05T08:39:23.748Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Prompt blocks: plans=0 notes=0 references=0 (+0 track-only archived, not prompted) (AI soft-excluded 0)
+[2026-08-05T08:39:23.749Z] INFO  [Summarizer] [trace=f6afcb85d14397a5a5696b65e85e51d3] Generating summary for commit 60fd2c1c
+[2026-08-05T08:39:23.749Z] INFO  [Summarizer] [trace=f6afcb85d14397a5a5696b65e85e51d3] Context: transcript=30, files=38, lines=8615+1614
+[2026-08-05T08:39:23.749Z] WARN  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] First API attempt failed: No LLM provider available. Set an Anthropic API key (ANTHROPIC_API_KEY) or configure a Jolli Space API key (jolliApiKey).. Retrying in 2000ms...
+[2026-08-05T08:39:25.749Z] INFO  [Summarizer] [trace=f6afcb85d14397a5a5696b65e85e51d3] Generating summary for commit 60fd2c1c
+[2026-08-05T08:39:25.749Z] INFO  [Summarizer] [trace=f6afcb85d14397a5a5696b65e85e51d3] Context: transcript=30, files=38, lines=8615+1614
+[2026-08-05T08:39:25.750Z] ERROR [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] API call failed after retry: No LLM provider available. Set an Anthropic API key (ANTHROPIC_API_KEY) or configure a Jolli Space API key (jolliApiKey).
+[2026-08-05T08:39:25.750Z] WARN  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Saving summary with empty topics + llm-failed marker for commit 60fd2c1c
+[2026-08-05T08:39:25.750Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] API summary generated (2.0s)
+[2026-08-05T08:39:25.750Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Plan registry scan: found 0 uncommitted slug(s) on master: []
+[2026-08-05T08:39:25.750Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Plan association: detected 0 slug(s) from transcripts: []
+[2026-08-05T08:39:25.750Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Note registry scan: found 0 uncommitted note(s) on master: []
+[2026-08-05T08:39:25.750Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Note association: detected 0 note(s): []
+[2026-08-05T08:39:25.750Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Reference association: detected 0 ref(s) for branch master
+[2026-08-05T08:39:25.752Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Summary built for 60fd2c1c: recap=no, topics=0, plans=absent, notes=absent, references=absent
+[2026-08-05T08:39:25.790Z] INFO  [GitOps] [trace=f6afcb85d14397a5a5696b65e85e51d3] Creating orphan branch 'jollimemory/summaries/v3' using plumbing commands
+[2026-08-05T08:39:25.828Z] INFO  [GitOps] [trace=f6afcb85d14397a5a5696b65e85e51d3] Orphan branch 'jollimemory/summaries/v3' created successfully
+[2026-08-05T08:39:25.883Z] INFO  [GitOps] [trace=f6afcb85d14397a5a5696b65e85e51d3] Updated branch 'jollimemory/summaries/v3': 4 written, 0 deleted (via fast-import)
+[2026-08-05T08:39:25.885Z] INFO  [MetadataManager] [trace=f6afcb85d14397a5a5696b65e85e51d3] Branch mapping created: master → master
+[2026-08-05T08:39:25.907Z] INFO  [MetadataManager] [trace=f6afcb85d14397a5a5696b65e85e51d3] Manifest updated: master/enhancing-design-60fd2c1c.md (commit)
+[2026-08-05T08:39:25.907Z] INFO  [FolderStorage] [trace=f6afcb85d14397a5a5696b65e85e51d3] Markdown generated: master/enhancing-design-60fd2c1c.md
+[2026-08-05T08:39:25.908Z] INFO  [FolderStorage] [trace=f6afcb85d14397a5a5696b65e85e51d3] Wrote 4 files, deleted 0 (Add summary for 60fd2c1c: enhancing design)
+[2026-08-05T08:39:25.908Z] INFO  [SummaryStore] [trace=f6afcb85d14397a5a5696b65e85e51d3] Summary stored successfully for commit 60fd2c1c
+[2026-08-05T08:39:25.909Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Summary stored successfully for commit 60fd2c1c (157ms, 0 plans, 0 notes, 0 references)
+[2026-08-05T08:39:25.909Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] === Pipeline completed in 11.9s ===
+[2026-08-05T08:39:25.909Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] === Summary content (0 topics) ===
+[2026-08-05T08:39:25.918Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Processed 1 queue entries
+[2026-08-05T08:39:25.920Z] INFO  [SessionTracker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Enqueued queue operation: type=ingest tag=ingest file=1785919165919-00000001-c992f39d-ingest.json
+[2026-08-05T08:39:25.920Z] INFO  [PushExecutor] [trace=f6afcb85d14397a5a5696b65e85e51d3] Post-queue push trigger: scheduling drain for 1 newly generated summar(ies)
+[2026-08-05T08:39:25.921Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] === Queue worker finished ===
+[2026-08-05T08:39:25.922Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] Processing queue entry: type=ingest triggeredBy=post-commit
+[2026-08-05T08:39:25.923Z] INFO  [QueueWorker] [trace=f6afcb85d14397a5a5696b65e85e51d3] No API key configured — skipping ingest (post-commit)
+[2026-08-05T08:39:26.083Z] INFO  [notes] detectNotes found 0 notes (0 in registry)
+[2026-08-05T08:39:26.084Z] INFO  [skills] detectSkills found 0 active (0 in registry)
+[2026-08-05T08:39:26.084Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-08-05T08:39:26.084Z] INFO  [plans] detectPlans found 0 plans (0 in registry)
+[2026-08-05T08:39:26.102Z] INFO  [SidebarWebviewProvider] pushMemories: 3 item(s)
+[2026-08-05T08:39:35.092Z] INFO  [CursorTranscriptReader] Read Cursor session 71aeffc4: 0 new bubbles, 0 entries extracted (index 9→9)
+[2026-08-05T08:39:35.093Z] INFO  [CursorTranscriptReader] Read Cursor session 0f7d3070: 0 new bubbles, 0 entries extracted (index 93→93)
+[2026-08-05T08:39:35.094Z] INFO  [CursorTranscriptReader] Read Cursor session 38dfa837: 0 new bubbles, 0 entries extracted (index 36→36)
+[2026-08-05T08:39:35.094Z] INFO  [CursorTranscriptReader] Read Cursor session 5197b789: 0 new bubbles, 0 entries extracted (index 48→48)
+[2026-08-05T08:39:35.095Z] INFO  [CursorTranscriptReader] Read Cursor session c4c905ad: 0 new bubbles, 0 entries extracted (index 36→36)
+[2026-08-05T08:39:35.170Z] INFO  [SidebarWebviewProvider] pushCommits: 1 item(s), mode=single
+[2026-08-05T08:40:37.008Z] INFO  [PrePushHook] [trace=586c117ab4015392c78f8f0ecf7a59b4] pre-push hook: remote=origin budget=3000ms
+[2026-08-05T08:40:37.030Z] INFO  [PushPendingStore] [trace=586c117ab4015392c78f8f0ecf7a59b4] Enqueued 1 new push-pending entries (branch=master)
+[2026-08-05T08:40:37.031Z] INFO  [PrePushHook] [trace=586c117ab4015392c78f8f0ecf7a59b4] pre-push: recorded 1 commit(s) across 1 pushed ref(s)
+[2026-08-05T08:40:37.040Z] INFO  [PrePushHook] [trace=586c117ab4015392c78f8f0ecf7a59b4] Recorded 1 commit(s) for later sync — not signed in to Jolli
+[2026-08-05T08:40:37.041Z] INFO  [StorageFactory] [trace=586c117ab4015392c78f8f0ecf7a59b4] StorageFactory.create: storageMode=dual-write, projectPath=/Users/ahmedsabha/MyLife/programming/web/MyPortfolioApps/almulhim/almulhim-landing
+[2026-08-05T08:40:37.064Z] INFO  [StorageFactory] [trace=586c117ab4015392c78f8f0ecf7a59b4] Storage mode: dual-write (primary=orphan, shadow=folder)
+[2026-08-05T08:49:27.735Z] INFO  [StopHook] Stop hook triggered (session=0f7d3070-ac69-4870-b515-5d0b40c4a659)
+[2026-08-05T08:49:27.749Z] INFO  [StopHook] Hook input — session_id=0f7d3070-ac69-4870-b515-5d0b40c4a659, transcript_path=/Users/ahmedsabha/.cursor/projects/Users-ahmedsabha-MyLife-programming-web-MyPortfolioApps-almulhim-almulhim-landing/agent-transcripts/0f7d3070-ac69-4870-b515-5d0b40c4a659/0f7d3070-ac69-4870-b515-5d0b40c4a659.jsonl
+[2026-08-05T08:49:27.750Z] INFO  [StopHook] Session saved successfully
+[2026-08-05T08:49:27.909Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-05T08:49:27.909Z] INFO  [plans] detectPlans found 0 plans (0 in registry)
+[2026-08-05T08:49:27.909Z] INFO  [notes] detectNotes found 0 notes (0 in registry)
+[2026-08-05T08:49:27.909Z] INFO  [skills] detectSkills found 0 active (0 in registry)
+[2026-08-05T08:49:27.909Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-08-05T08:49:37.697Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=6, summaries=1, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=false/undefined
+[2026-08-05T08:54:19.632Z] INFO  [StopHook] Stop hook triggered (session=0f7d3070-ac69-4870-b515-5d0b40c4a659)
+[2026-08-05T08:54:19.643Z] INFO  [StopHook] Hook input — session_id=0f7d3070-ac69-4870-b515-5d0b40c4a659, transcript_path=/Users/ahmedsabha/.cursor/projects/Users-ahmedsabha-MyLife-programming-web-MyPortfolioApps-almulhim-almulhim-landing/agent-transcripts/0f7d3070-ac69-4870-b515-5d0b40c4a659/0f7d3070-ac69-4870-b515-5d0b40c4a659.jsonl
+[2026-08-05T08:54:19.644Z] INFO  [StopHook] Session saved successfully
+[2026-08-05T08:54:19.796Z] INFO  [Installer] Checking Jolli Memory status
+[2026-08-05T08:54:19.796Z] INFO  [notes] detectNotes found 0 notes (0 in registry)
+[2026-08-05T08:54:19.796Z] INFO  [plans] detectPlans found 0 plans (0 in registry)
+[2026-08-05T08:54:19.796Z] INFO  [skills] detectSkills found 0 active (0 in registry)
+[2026-08-05T08:54:19.796Z] INFO  [references] detectReferences(*) found 0 (0 in registry)
+[2026-08-05T08:54:29.264Z] INFO  [Installer] Status: enabled=true, claude=true, git=true, geminiHook=true, worktreeHooks=true, sessions=6, summaries=1, codex=false/undefined, gemini=true/true, enabledWorktrees=1, opencode=false/undefined, cursor=true/true, copilot=false/true, copilotChat=true, cline=false/undefined

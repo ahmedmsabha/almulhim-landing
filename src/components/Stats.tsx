@@ -84,7 +84,7 @@ export function Stats() {
   return (
     <section className="border-b border-border bg-card">
       <Reveal>
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-12 sm:px-6 lg:grid-cols-4">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 px-4 py-8 sm:gap-6 sm:px-6 sm:py-12 lg:grid-cols-4">
           {stats.map((stat) => (
             <StatItem key={stat.label} {...stat} />
           ))}

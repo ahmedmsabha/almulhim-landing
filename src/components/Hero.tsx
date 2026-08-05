@@ -38,17 +38,17 @@ export function Hero() {
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover object-[center_30%] sm:object-center"
           />
         </motion.div>
         <div className="bg-hero-gradient absolute inset-0" />
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-navy-deep/90 via-transparent to-navy/30"
+          className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/55 to-navy/40 sm:from-navy-deep/90 sm:via-transparent sm:to-navy/30"
         />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-20 pt-32 sm:px-6 sm:pb-28">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-16 pt-28 sm:px-6 sm:pb-28 sm:pt-32">
         <motion.div
           className="max-w-2xl"
           initial="hidden"
@@ -62,29 +62,32 @@ export function Hero() {
         >
           <motion.h1
             variants={item}
-            className="font-display text-5xl font-extrabold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl"
+            className="font-display text-[2.65rem] font-extrabold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl"
           >
             {brand.shortNameAr}
           </motion.h1>
           <motion.p
             variants={item}
-            className="mt-4 font-display text-xl font-semibold text-gold-soft sm:text-2xl"
+            className="mt-3 font-display text-lg font-semibold text-gold-soft sm:mt-4 sm:text-2xl"
           >
             {brand.tagline}
           </motion.p>
           <motion.p
             variants={item}
-            className="mt-4 max-w-xl text-base leading-8 text-white/80 sm:text-lg"
+            className="mt-3 max-w-xl text-[0.95rem] leading-7 text-white/85 sm:mt-4 sm:text-lg sm:leading-8"
           >
             منصة تعليمية مبسّطة لطلاب التوجيهي في الفيزياء — تصفّح المنهج والدروس
             التجريبية بدون حساب.
           </motion.p>
 
-          <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3">
+          <motion.div
+            variants={item}
+            className="mt-7 flex w-full flex-col gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
+          >
             <Button
               asChild
               size="lg"
-              className="h-11 gap-2 bg-primary px-5 text-base hover:bg-primary-container"
+              className="h-12 w-full gap-2 bg-primary px-5 text-base hover:bg-primary-container sm:h-11 sm:w-auto"
             >
               <a
                 href="#preview"
@@ -98,7 +101,7 @@ export function Hero() {
               asChild
               variant="outline"
               size="lg"
-              className="h-11 gap-2 border-white/30 bg-white/5 px-5 text-base text-white backdrop-blur-sm hover:bg-white/15 hover:text-white"
+              className="h-12 w-full gap-2 border-white/30 bg-white/5 px-5 text-base text-white backdrop-blur-sm hover:bg-white/15 hover:text-white sm:h-11 sm:w-auto"
             >
               <a
                 href="#catalog"

@@ -31,9 +31,11 @@ export function LessonPlayerDialog({
 }: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="gap-0 overflow-hidden p-0 sm:max-w-3xl">
-        <DialogHeader className="border-b border-border px-5 py-4 text-start">
-          <DialogTitle className="font-display text-lg">{title}</DialogTitle>
+      <DialogContent className="max-h-[90svh] w-[calc(100%-1.5rem)] gap-0 overflow-y-auto p-0 sm:max-w-3xl">
+        <DialogHeader className="border-b border-border px-4 py-3 text-start sm:px-5 sm:py-4">
+          <DialogTitle className="font-display text-base sm:text-lg">
+            {title}
+          </DialogTitle>
           {subtitle ? (
             <DialogDescription>{subtitle}</DialogDescription>
           ) : null}

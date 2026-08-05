@@ -79,7 +79,7 @@ export function Catalog({ units, loadError = false }: Props) {
   }
 
   return (
-    <section id="catalog" className="border-b border-border py-16 sm:py-20">
+    <section id="catalog" className="border-b border-border py-12 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <p className="text-label-md uppercase text-primary">خريطة المنهج</p>
@@ -117,30 +117,40 @@ export function Catalog({ units, loadError = false }: Props) {
                   className="overflow-hidden rounded-xl border border-border bg-card px-0 last:border-b"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-stretch">
-                    <div className="relative hidden w-36 shrink-0 overflow-hidden sm:block">
+                    {/* Mobile: full-bleed banner; desktop: side strip */}
+                    <div className="relative h-28 w-full shrink-0 overflow-hidden sm:h-auto sm:w-36 sm:min-h-[7.5rem]">
                       <Image
                         src={pickCover(unit.id)}
                         alt=""
                         fill
-                        sizes="144px"
+                        sizes="(max-width: 640px) 100vw, 144px"
                         className="object-cover"
                       />
                       <div className="absolute inset-0 bg-navy/25" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/20 to-transparent sm:hidden" />
+                      <div className="absolute inset-x-0 bottom-0 p-3 sm:hidden">
+                        <p className="font-display text-base font-semibold text-white drop-shadow">
+                          {unit.title}
+                        </p>
+                      </div>
                     </div>
                     <div className="min-w-0 flex-1">
-                      <AccordionTrigger className="px-4 py-4 hover:no-underline">
+                      <AccordionTrigger className="px-3 py-3 hover:no-underline sm:px-4 sm:py-4">
                         <div className="text-start">
-                          <p className="font-display text-lg font-semibold text-foreground">
+                          <p className="hidden font-display text-lg font-semibold text-foreground sm:block">
                             {unit.title}
                           </p>
+                          <p className="font-display text-sm font-semibold text-foreground sm:hidden">
+                            عرض الدروس
+                          </p>
                           {unit.description ? (
-                            <p className="mt-1 text-sm font-normal text-muted-foreground">
+                            <p className="mt-1 line-clamp-2 text-sm font-normal text-muted-foreground">
                               {unit.description}
                             </p>
                           ) : null}
                         </div>
                       </AccordionTrigger>
-                      <AccordionContent className="px-4 pb-4">
+                      <AccordionContent className="px-3 pb-3 sm:px-4 sm:pb-4">
                         <div className="space-y-5">
                           {unit.chapters.map((chapter) => {
                             if (chapter.lessons.length === 0) return null;
@@ -167,7 +177,7 @@ export function Catalog({ units, loadError = false }: Props) {
                                       return (
                                         <li
                                           key={lesson.id}
-                                          className="flex flex-wrap items-center justify-between gap-3 px-4 py-3"
+                                          className="flex flex-col gap-2 px-3 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-3 sm:px-4"
                                         >
                                           <div className="min-w-0">
                                             <div className="flex flex-wrap items-center gap-2">
@@ -191,7 +201,7 @@ export function Catalog({ units, loadError = false }: Props) {
                                           <Button
                                             asChild
                                             variant="link"
-                                            className="h-auto px-0"
+                                            className="h-auto justify-start px-0 sm:justify-center"
                                           >
                                             <a
                                               href="#plans"
@@ -220,7 +230,7 @@ export function Catalog({ units, loadError = false }: Props) {
                                               chapterTitle: chapter.title,
                                             })
                                           }
-                                          className="flex w-full flex-wrap items-center justify-between gap-3 px-4 py-3 text-start transition-colors hover:bg-muted/60"
+                                          className="flex w-full flex-col gap-2 px-3 py-3 text-start transition-colors hover:bg-muted/60 active:bg-muted/80 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-3 sm:px-4"
                                         >
                                           <div className="min-w-0">
                                             <div className="flex flex-wrap items-center gap-2">
