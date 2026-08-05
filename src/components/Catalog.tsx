@@ -1,12 +1,23 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
-import { Lock, Play, X } from "@phosphor-icons/react";
+import { Lock, Play } from "@phosphor-icons/react";
+import { LessonPlayerDialog } from "@/components/LessonPlayerDialog";
+import { Reveal } from "@/components/motion/Reveal";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import type { PublicCatalogUnit } from "@/lib/api";
 import { fetchPreviewLessonDetail } from "@/lib/api";
 import { brand } from "@/lib/brand";
+import { pickCover } from "@/lib/media";
 import { captureLandingEvent } from "@/lib/posthog/capture";
-import { cn } from "@/lib/utils";
 import { LoadErrorState } from "./LoadErrorState";
 
 type Props = {
@@ -27,6 +38,10 @@ export function Catalog({ units, loadError = false }: Props) {
     unit.chapters.some((chapter) => chapter.lessons.length > 0),
   );
 
+  const visibleUnits = units.filter(
+    (unit) => !unit.chapters.every((chapter) => chapter.lessons.length === 0),
+  );
+
   async function openPreview(lesson: {
     id: string;
     title: string;
@@ -38,6 +53,7 @@ export function Catalog({ units, loadError = false }: Props) {
     setActiveId(lesson.id);
     setActiveTitle(lesson.title);
     setActiveChapter(lesson.chapterTitle);
+    setPlaybackUrl(null);
 
     const detail = await fetchPreviewLessonDetail(lesson.id);
     setLoadingId(null);
@@ -51,174 +67,202 @@ export function Catalog({ units, loadError = false }: Props) {
     setPlayerError("افتح التطبيق لمشاهدة هذا الدرس التجريبي.");
   }
 
-  function closePlayer() {
-    setActiveId(null);
-    setActiveTitle(null);
-    setActiveChapter(null);
-    setPlaybackUrl(null);
-    setPlayerError(null);
+  function onOpenChange(open: boolean) {
+    if (!open) {
+      setActiveId(null);
+      setActiveTitle(null);
+      setActiveChapter(null);
+      setPlaybackUrl(null);
+      setPlayerError(null);
+      setLoadingId(null);
+    }
   }
 
   return (
     <section id="catalog" className="border-b border-border py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="max-w-2xl">
+        <Reveal className="max-w-2xl">
           <p className="text-label-md uppercase text-primary">خريطة المنهج</p>
-          <h2 className="text-headline-md mt-2 text-on-surface">
+          <h2 className="text-headline-md mt-2 text-foreground">
             اطّلع على المنهج كاملًا قبل الاشتراك
           </h2>
-          <p className="mt-3 text-base leading-7 text-on-surface-variant">
+          <p className="mt-3 text-base leading-7 text-muted-foreground">
             تصفّح الوحدات والدروس بدون حساب. الدروس التجريبية متاحة للمشاهدة،
             والباقي يُفتح بعد الاشتراك.
           </p>
-        </div>
+        </Reveal>
 
         {loadError ? (
           <LoadErrorState description="تعذر تحميل خريطة المنهج. تأكد من اتصال الخادم ثم أعد المحاولة." />
         ) : !hasContent ? (
-          <div className="mt-10 rounded-lg border border-dashed border-outline-variant bg-surface-container-lowest px-6 py-12 text-center">
-            <p className="font-display text-lg font-semibold text-on-surface">
+          <div className="mt-10 rounded-xl border border-dashed border-outline-variant bg-card px-6 py-12 text-center">
+            <p className="font-display text-lg font-semibold text-foreground">
               قريبًا خريطة المنهج الكاملة
             </p>
-            <p className="mt-2 text-sm text-on-surface-variant">
+            <p className="mt-2 text-sm text-muted-foreground">
               سيتم عرض الوحدات والدروس هنا فور نشرها من لوحة الإدارة.
             </p>
           </div>
         ) : (
-          <div className="mt-10 space-y-8">
-            {units.map((unit) => {
-              if (unit.chapters.every((chapter) => chapter.lessons.length === 0)) {
-                return null;
-              }
-
-              return (
-                <article key={unit.id}>
-                  <div className="border-b border-border pb-3">
-                    <h3 className="font-display text-xl font-semibold text-on-surface">
-                      {unit.title}
-                    </h3>
-                    {unit.description ? (
-                      <p className="mt-1 text-sm text-on-surface-variant">
-                        {unit.description}
-                      </p>
-                    ) : null}
-                  </div>
-
-                  <div className="mt-5 space-y-6">
-                    {unit.chapters.map((chapter) => {
-                      if (chapter.lessons.length === 0) return null;
-
-                      return (
-                        <div key={chapter.id}>
-                          <h4 className="text-sm font-semibold text-on-surface-variant">
-                            {chapter.title}
-                          </h4>
-                          <ul className="mt-3 divide-y divide-border rounded-lg border border-border bg-surface-container-lowest">
-                            {chapter.lessons.map((lesson) => {
-                              const meta = [
-                                lesson.videoCount > 0
-                                  ? `${lesson.videoCount} فيديو`
-                                  : null,
-                                lesson.pdfCount > 0
-                                  ? `${lesson.pdfCount} ملف`
-                                  : null,
-                              ]
-                                .filter(Boolean)
-                                .join(" · ");
-
-                              if (lesson.isLocked) {
-                                return (
-                                  <li
-                                    key={lesson.id}
-                                    className="flex flex-wrap items-center justify-between gap-3 px-4 py-3"
-                                  >
-                                    <div className="min-w-0">
-                                      <div className="flex flex-wrap items-center gap-2">
-                                        <span className="text-label-md inline-flex items-center gap-1 rounded-full bg-surface-container px-2 py-0.5 text-on-surface-variant">
-                                          <Lock size={12} weight="bold" />
-                                          مقفل
-                                        </span>
-                                        <span className="font-medium text-on-surface">
-                                          {lesson.title}
-                                        </span>
-                                      </div>
-                                      {meta ? (
-                                        <p className="mt-1 text-xs text-on-surface-variant">
-                                          {meta}
-                                        </p>
-                                      ) : null}
-                                    </div>
-                                    <a
-                                      href="#plans"
-                                      onClick={() =>
-                                        captureLandingEvent(
-                                          "catalog_subscribe_cta",
-                                          { lessonId: lesson.id },
-                                        )
-                                      }
-                                      className="shrink-0 text-sm font-semibold text-primary hover:underline"
-                                    >
-                                      اشترك للوصول
-                                    </a>
-                                  </li>
-                                );
-                              }
-
-                              return (
-                                <li key={lesson.id}>
-                                  <button
-                                    type="button"
-                                    onClick={() =>
-                                      void openPreview({
-                                        id: lesson.id,
-                                        title: lesson.title,
-                                        chapterTitle: chapter.title,
-                                      })
-                                    }
-                                    className={cn(
-                                      "flex w-full flex-wrap items-center justify-between gap-3 px-4 py-3 text-start transition-colors hover:bg-surface-container-low",
-                                      activeId === lesson.id &&
-                                        "bg-secondary-container/40",
-                                    )}
-                                  >
-                                    <div className="min-w-0">
-                                      <div className="flex flex-wrap items-center gap-2">
-                                        <span className="text-label-md inline-flex rounded-full bg-status-active-bg px-2 py-0.5 uppercase text-status-active">
-                                          تجريبي
-                                        </span>
-                                        <span className="font-medium text-on-surface">
-                                          {lesson.title}
-                                        </span>
-                                      </div>
-                                      {meta ? (
-                                        <p className="mt-1 text-xs text-on-surface-variant">
-                                          {meta}
-                                        </p>
-                                      ) : null}
-                                    </div>
-                                    <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-primary">
-                                      <Play size={14} weight="fill" />
-                                      {loadingId === lesson.id
-                                        ? "جاري التحميل..."
-                                        : "شاهد"}
-                                    </span>
-                                  </button>
-                                </li>
-                              );
-                            })}
-                          </ul>
+          <Reveal className="mt-10" delay={0.08}>
+            <Accordion
+              type="multiple"
+              defaultValue={visibleUnits.slice(0, 1).map((u) => u.id)}
+              className="space-y-3"
+            >
+              {visibleUnits.map((unit) => (
+                <AccordionItem
+                  key={unit.id}
+                  value={unit.id}
+                  className="overflow-hidden rounded-xl border border-border bg-card px-0 last:border-b"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-stretch">
+                    <div className="relative hidden w-36 shrink-0 overflow-hidden sm:block">
+                      <Image
+                        src={pickCover(unit.id)}
+                        alt=""
+                        fill
+                        sizes="144px"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-navy/25" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <AccordionTrigger className="px-4 py-4 hover:no-underline">
+                        <div className="text-start">
+                          <p className="font-display text-lg font-semibold text-foreground">
+                            {unit.title}
+                          </p>
+                          {unit.description ? (
+                            <p className="mt-1 text-sm font-normal text-muted-foreground">
+                              {unit.description}
+                            </p>
+                          ) : null}
                         </div>
-                      );
-                    })}
+                      </AccordionTrigger>
+                      <AccordionContent className="px-4 pb-4">
+                        <div className="space-y-5">
+                          {unit.chapters.map((chapter) => {
+                            if (chapter.lessons.length === 0) return null;
+
+                            return (
+                              <div key={chapter.id}>
+                                <h4 className="text-sm font-semibold text-muted-foreground">
+                                  {chapter.title}
+                                </h4>
+                                <ul className="mt-2 divide-y divide-border overflow-hidden rounded-lg border border-border">
+                                  {chapter.lessons.map((lesson) => {
+                                    const meta = [
+                                      lesson.videoCount > 0
+                                        ? `${lesson.videoCount} فيديو`
+                                        : null,
+                                      lesson.pdfCount > 0
+                                        ? `${lesson.pdfCount} ملف`
+                                        : null,
+                                    ]
+                                      .filter(Boolean)
+                                      .join(" · ");
+
+                                    if (lesson.isLocked) {
+                                      return (
+                                        <li
+                                          key={lesson.id}
+                                          className="flex flex-wrap items-center justify-between gap-3 px-4 py-3"
+                                        >
+                                          <div className="min-w-0">
+                                            <div className="flex flex-wrap items-center gap-2">
+                                              <Badge
+                                                variant="secondary"
+                                                className="gap-1"
+                                              >
+                                                <Lock size={12} weight="bold" />
+                                                مقفل
+                                              </Badge>
+                                              <span className="font-medium text-foreground">
+                                                {lesson.title}
+                                              </span>
+                                            </div>
+                                            {meta ? (
+                                              <p className="mt-1 text-xs text-muted-foreground">
+                                                {meta}
+                                              </p>
+                                            ) : null}
+                                          </div>
+                                          <Button
+                                            asChild
+                                            variant="link"
+                                            className="h-auto px-0"
+                                          >
+                                            <a
+                                              href="#plans"
+                                              onClick={() =>
+                                                captureLandingEvent(
+                                                  "catalog_subscribe_cta",
+                                                  { lessonId: lesson.id },
+                                                )
+                                              }
+                                            >
+                                              اشترك للوصول
+                                            </a>
+                                          </Button>
+                                        </li>
+                                      );
+                                    }
+
+                                    return (
+                                      <li key={lesson.id}>
+                                        <button
+                                          type="button"
+                                          onClick={() =>
+                                            void openPreview({
+                                              id: lesson.id,
+                                              title: lesson.title,
+                                              chapterTitle: chapter.title,
+                                            })
+                                          }
+                                          className="flex w-full flex-wrap items-center justify-between gap-3 px-4 py-3 text-start transition-colors hover:bg-muted/60"
+                                        >
+                                          <div className="min-w-0">
+                                            <div className="flex flex-wrap items-center gap-2">
+                                              <Badge className="bg-status-active text-white hover:bg-status-active">
+                                                تجريبي
+                                              </Badge>
+                                              <span className="font-medium text-foreground">
+                                                {lesson.title}
+                                              </span>
+                                            </div>
+                                            {meta ? (
+                                              <p className="mt-1 text-xs text-muted-foreground">
+                                                {meta}
+                                              </p>
+                                            ) : null}
+                                          </div>
+                                          <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-primary">
+                                            <Play size={14} weight="fill" />
+                                            {loadingId === lesson.id
+                                              ? "جاري التحميل..."
+                                              : "شاهد"}
+                                          </span>
+                                        </button>
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </AccordionContent>
+                    </div>
                   </div>
-                </article>
-              );
-            })}
-          </div>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </Reveal>
         )}
 
         {!loadError && hasContent ? (
-          <p className="mt-8 text-center text-sm text-on-surface-variant">
+          <p className="mt-8 text-center text-sm text-muted-foreground">
             الوصول الكامل للدروس المقفلّة عبر{" "}
             <a href="#plans" className="font-semibold text-primary hover:underline">
               الباقات
@@ -237,56 +281,15 @@ export function Catalog({ units, loadError = false }: Props) {
         ) : null}
       </div>
 
-      {(playbackUrl || playerError) && activeTitle ? (
-        <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-inverse-surface/60 p-4 backdrop-blur-sm"
-          role="dialog"
-          aria-modal="true"
-          aria-label={activeTitle}
-        >
-          <div className="w-full max-w-3xl overflow-hidden rounded-xl border border-border bg-surface-container-lowest shadow-xl">
-            <div className="flex items-center justify-between border-b border-border px-4 py-3">
-              <div>
-                <p className="font-display font-semibold text-on-surface">
-                  {activeTitle}
-                </p>
-                {activeChapter ? (
-                  <p className="text-xs text-on-surface-variant">{activeChapter}</p>
-                ) : null}
-              </div>
-              <button
-                type="button"
-                onClick={closePlayer}
-                className="rounded-md border border-border p-2 text-on-surface"
-                aria-label="إغلاق"
-              >
-                <X size={18} />
-              </button>
-            </div>
-            {playbackUrl ? (
-              <video
-                key={playbackUrl}
-                src={playbackUrl}
-                controls
-                autoPlay
-                className="aspect-video w-full bg-inverse-surface"
-              />
-            ) : (
-              <div className="px-6 py-12 text-center">
-                <p className="text-on-surface-variant">{playerError}</p>
-                <a
-                  href={brand.studentAppUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-flex rounded-md bg-primary px-4 py-2 text-sm font-semibold text-on-primary"
-                >
-                  فتح التطبيق
-                </a>
-              </div>
-            )}
-          </div>
-        </div>
-      ) : null}
+      <LessonPlayerDialog
+        open={Boolean(activeTitle)}
+        onOpenChange={onOpenChange}
+        title={activeTitle ?? ""}
+        subtitle={activeChapter}
+        playbackUrl={playbackUrl}
+        loading={Boolean(loadingId && !playbackUrl && !playerError)}
+        error={playerError}
+      />
     </section>
   );
 }

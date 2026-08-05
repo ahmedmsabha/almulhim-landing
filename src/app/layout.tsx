@@ -1,30 +1,15 @@
 import type { Metadata } from "next";
-import {
-  Hanken_Grotesk,
-  Inter,
-  JetBrains_Mono,
-  Noto_Sans_Arabic,
-} from "next/font/google";
+import { Cairo, Noto_Sans_Arabic } from "next/font/google";
 import { PostHogBootstrap } from "@/components/PostHogBootstrap";
+import { DirectionProvider } from "@/components/ui/direction";
 import { brand } from "@/lib/brand";
+import { cn } from "@/lib/utils";
 import "./globals.css";
 
-const hankenGrotesk = Hanken_Grotesk({
-  variable: "--font-hanken",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  weight: ["500"],
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic", "latin"],
+  weight: ["400", "600", "700", "800"],
 });
 
 const notoSansArabic = Noto_Sans_Arabic({
@@ -61,11 +46,13 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${hankenGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} ${notoSansArabic.variable} h-full`}
+      className={cn("h-full", cairo.variable, notoSansArabic.variable, "font-sans")}
     >
-      <body className="min-h-full bg-background text-on-surface">
-        <PostHogBootstrap />
-        {children}
+      <body className="min-h-full bg-background text-foreground">
+        <DirectionProvider dir="rtl">
+          <PostHogBootstrap />
+          {children}
+        </DirectionProvider>
       </body>
     </html>
   );

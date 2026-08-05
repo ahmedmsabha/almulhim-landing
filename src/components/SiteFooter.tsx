@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
 import { brand } from "@/lib/brand";
 
 const links = [
@@ -12,7 +13,7 @@ const links = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-inverse-surface text-inverse-on-surface">
+    <footer className="bg-navy-deep text-inverse-on-surface">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-3">
@@ -24,21 +25,23 @@ export function SiteFooter() {
               className="rounded-lg"
             />
             <div>
-              <p className="font-display text-lg font-bold">{brand.shortNameAr}</p>
-              <p className="text-xs text-inverse-primary">{brand.tagline}</p>
+              <p className="font-display text-lg font-bold text-white">
+                {brand.shortNameAr}
+              </p>
+              <p className="text-xs text-gold">{brand.tagline}</p>
             </div>
           </div>
-          <p className="mt-4 max-w-sm text-sm leading-7 text-inverse-on-surface/80">
+          <p className="mt-4 max-w-sm text-sm leading-7 text-white/70">
             {brand.description}
           </p>
         </div>
 
         <div>
-          <p className="text-label-md uppercase text-inverse-primary">روابط</p>
-          <ul className="mt-3 space-y-2 text-sm">
+          <p className="text-label-md uppercase text-gold">روابط</p>
+          <ul className="mt-3 space-y-2 text-sm text-white/80">
             {links.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="hover:text-white">
+                <a href={link.href} className="transition-colors hover:text-white">
                   {link.label}
                 </a>
               </li>
@@ -47,14 +50,14 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <p className="text-label-md uppercase text-inverse-primary">التطبيقات</p>
-          <ul className="mt-3 space-y-2 text-sm">
+          <p className="text-label-md uppercase text-gold">التطبيقات</p>
+          <ul className="mt-3 space-y-2 text-sm text-white/80">
             <li>
               <a
                 href={brand.studentAppUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-white"
+                className="transition-colors hover:text-white"
               >
                 تطبيق الطالب
               </a>
@@ -64,7 +67,7 @@ export function SiteFooter() {
                 href={brand.adminUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-white"
+                className="transition-colors hover:text-white"
               >
                 لوحة الإدارة
               </a>
@@ -72,11 +75,10 @@ export function SiteFooter() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10">
-        <p className="mx-auto max-w-6xl px-4 py-4 text-xs text-inverse-on-surface/70 sm:px-6">
-          © {new Date().getFullYear()} {brand.shortNameAr}. جميع الحقوق محفوظة.
-        </p>
-      </div>
+      <Separator className="bg-white/10" />
+      <p className="mx-auto max-w-6xl px-4 py-4 text-xs text-white/55 sm:px-6">
+        © {new Date().getFullYear()} {brand.shortNameAr}. جميع الحقوق محفوظة.
+      </p>
     </footer>
   );
 }

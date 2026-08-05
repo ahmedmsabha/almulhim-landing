@@ -1,6 +1,18 @@
 "use client";
 
 import { Check } from "@phosphor-icons/react";
+import { motion, useReducedMotion } from "motion/react";
+import { Reveal } from "@/components/motion/Reveal";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import type { PublicPlan } from "@/lib/api";
 import { brand } from "@/lib/brand";
 import { captureLandingEvent } from "@/lib/posthog/capture";
@@ -13,110 +25,132 @@ type Props = {
 };
 
 export function Plans({ plans, loadError = false }: Props) {
+  const reduce = useReducedMotion();
   const subscribeUrl = `${brand.studentAppUrl.replace(/\/$/, "")}/subscription`;
 
   return (
-    <section id="plans" className="border-b border-border py-16 sm:py-20">
+    <section
+      id="plans"
+      className="border-b border-border bg-navy py-16 text-inverse-on-surface sm:py-20"
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-label-md uppercase text-primary">الباقات</p>
-          <h2 className="text-headline-md mt-2 text-on-surface">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p className="text-label-md uppercase text-gold">الباقات</p>
+          <h2 className="text-headline-md mt-2 text-white">
             اختر الباقة المناسبة لك
           </h2>
-          <p className="mt-3 text-base leading-7 text-on-surface-variant">
+          <p className="mt-3 text-base leading-7 text-white/70">
             التصفّح هنا مجاني. الاشتراك يفتح الوصول الكامل للدروس والملخصات داخل
             تطبيق الطالب.
           </p>
-        </div>
+        </Reveal>
 
         {loadError ? (
-          <div className="mx-auto max-w-lg">
+          <div className="mx-auto max-w-lg [&_.border-dashed]:border-white/20 [&_.text-foreground]:text-white [&_.text-muted-foreground]:text-white/70">
             <LoadErrorState description="تعذر تحميل الباقات. تأكد من اتصال الخادم ثم أعد المحاولة." />
           </div>
         ) : plans.length === 0 ? (
-          <div className="mx-auto mt-10 max-w-lg rounded-lg border border-dashed border-outline-variant bg-surface-container-lowest px-6 py-10 text-center">
-            <p className="font-display font-semibold text-on-surface">
+          <div className="mx-auto mt-10 max-w-lg rounded-xl border border-dashed border-white/25 bg-white/5 px-6 py-10 text-center">
+            <p className="font-display font-semibold text-white">
               لا توجد باقات منشورة حاليًا
             </p>
-            <p className="mt-2 text-sm text-on-surface-variant">
+            <p className="mt-2 text-sm text-white/70">
               يمكنك المتابعة عبر تطبيق الطالب أو مراسلتنا من صفحة التواصل.
             </p>
-            <a
-              href={subscribeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary"
-            >
-              الانتقال للاشتراك
-            </a>
+            <Button asChild size="lg" className="mt-5 bg-gold text-navy hover:bg-gold-soft">
+              <a href={subscribeUrl} target="_blank" rel="noopener noreferrer">
+                الانتقال للاشتراك
+              </a>
+            </Button>
           </div>
         ) : (
           <ul className="mx-auto mt-10 grid max-w-4xl gap-5 md:grid-cols-2 lg:grid-cols-3">
             {plans.map((plan, index) => {
               const featured = index === Math.min(1, plans.length - 1);
               return (
-                <li
-                  key={`${plan.name}-${plan.sortOrder}-${index}`}
-                  className={cn(
-                    "flex flex-col rounded-lg border bg-surface-container-lowest p-6",
-                    featured
-                      ? "border-primary shadow-[0_18px_40px_-28px_rgba(53,37,205,0.55)]"
-                      : "border-border",
-                  )}
-                >
-                  {featured ? (
-                    <span className="text-label-md mb-3 inline-flex w-fit rounded-full bg-primary px-2 py-0.5 uppercase text-on-primary">
-                      الأكثر اختيارًا
-                    </span>
-                  ) : null}
-                  <h3 className="font-display text-xl font-bold text-on-surface">
-                    {plan.name}
-                  </h3>
-                  <p className="mt-1 text-sm text-on-surface-variant">
-                    {formatDurationDays(plan.durationDays)}
-                  </p>
-                  <p className="mt-4 font-display text-3xl font-bold text-primary">
-                    {formatPrice(plan.priceAmount, plan.currency)}
-                  </p>
-                  {plan.description ? (
-                    <p className="mt-3 text-sm leading-6 text-on-surface-variant">
-                      {plan.description}
-                    </p>
-                  ) : null}
-                  <ul className="mt-5 space-y-2 text-sm text-on-surface-variant">
-                    {[
-                      "وصول لجميع الدروس المنشورة",
-                      "ملخصات وملفات PDF",
-                      "دعم ومتابعة عبر التطبيق",
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <Check
-                          size={18}
-                          weight="bold"
-                          className="mt-0.5 shrink-0 text-status-active"
-                        />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href={subscribeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() =>
-                      captureLandingEvent("plan_cta_click", {
-                        planName: plan.name,
-                      })
-                    }
-                    className={cn(
-                      "mt-6 inline-flex justify-center rounded-md px-4 py-2.5 text-sm font-semibold transition-colors",
-                      featured
-                        ? "bg-primary text-on-primary hover:bg-primary-container"
-                        : "border border-border text-on-surface hover:border-primary hover:text-primary",
-                    )}
+                <li key={`${plan.name}-${plan.sortOrder}-${index}`}>
+                  <motion.div
+                    initial={reduce ? false : { opacity: 0, y: 18 }}
+                    whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.08, duration: 0.45 }}
+                    whileHover={reduce ? undefined : { y: -4 }}
+                    className="h-full"
                   >
-                    اشترك الآن
-                  </a>
+                    <Card
+                      className={cn(
+                        "h-full border-white/10 bg-white/5 text-white shadow-none",
+                        featured &&
+                          "border-gold/60 bg-white/10 ring-1 ring-gold/40",
+                      )}
+                    >
+                      <CardHeader>
+                        {featured ? (
+                          <Badge className="mb-1 w-fit bg-gold text-navy hover:bg-gold">
+                            موصى به
+                          </Badge>
+                        ) : null}
+                        <CardTitle className="font-display text-xl text-white">
+                          {plan.name}
+                        </CardTitle>
+                        <CardDescription className="text-white/65">
+                          {formatDurationDays(plan.durationDays)}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="font-display text-3xl font-bold text-gold">
+                          {formatPrice(plan.priceAmount, plan.currency)}
+                        </p>
+                        {plan.description ? (
+                          <p className="mt-3 text-sm leading-6 text-white/70">
+                            {plan.description}
+                          </p>
+                        ) : null}
+                        <ul className="mt-5 space-y-2 text-sm text-white/75">
+                          {[
+                            "وصول لجميع الدروس المنشورة",
+                            "ملخصات وملفات PDF",
+                            "دعم ومتابعة عبر التطبيق",
+                          ].map((item) => (
+                            <li key={item} className="flex items-start gap-2">
+                              <Check
+                                size={18}
+                                weight="bold"
+                                className="mt-0.5 shrink-0 text-gold"
+                              />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                      <CardFooter className="border-white/10 bg-transparent">
+                        <Button
+                          asChild
+                          size="lg"
+                          className={cn(
+                            "w-full",
+                            featured
+                              ? "bg-gold text-navy hover:bg-gold-soft"
+                              : "border-white/25 bg-transparent text-white hover:bg-white/10",
+                          )}
+                          variant={featured ? "default" : "outline"}
+                        >
+                          <a
+                            href={subscribeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() =>
+                              captureLandingEvent("plan_cta_click", {
+                                planName: plan.name,
+                              })
+                            }
+                          >
+                            اشترك الآن
+                          </a>
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  </motion.div>
                 </li>
               );
             })}

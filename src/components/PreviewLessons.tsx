@@ -1,12 +1,25 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
-import { Play, X } from "@phosphor-icons/react";
+import { Play } from "@phosphor-icons/react";
+import { motion, useReducedMotion } from "motion/react";
+import { LessonPlayerDialog } from "@/components/LessonPlayerDialog";
+import { Reveal } from "@/components/motion/Reveal";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import type { PublicPreviewLesson } from "@/lib/api";
 import { fetchPreviewLessonDetail } from "@/lib/api";
 import { brand } from "@/lib/brand";
+import { pickCover } from "@/lib/media";
 import { captureLandingEvent } from "@/lib/posthog/capture";
-import { cn } from "@/lib/utils";
 import { LoadErrorState } from "./LoadErrorState";
 
 type Props = {
@@ -30,6 +43,7 @@ function formatDuration(total: number | null): string | null {
 }
 
 export function PreviewLessons({ lessons, loadError = false }: Props) {
+  const reduce = useReducedMotion();
   const [activeId, setActiveId] = useState<string | null>(null);
   const [playbackUrl, setPlaybackUrl] = useState<string | null>(null);
   const [loadingId, setLoadingId] = useState<string | null>(null);
@@ -54,6 +68,7 @@ export function PreviewLessons({ lessons, loadError = false }: Props) {
     setPlayerError(null);
     setLoadingId(lesson.id);
     setActiveId(lesson.id);
+    setPlaybackUrl(null);
 
     const detail = await fetchPreviewLessonDetail(lesson.id);
     setLoadingId(null);
@@ -67,93 +82,119 @@ export function PreviewLessons({ lessons, loadError = false }: Props) {
     setPlayerError("افتح التطبيق لمشاهدة هذا الدرس التجريبي.");
   }
 
-  function closePlayer() {
-    setActiveId(null);
-    setPlaybackUrl(null);
-    setPlayerError(null);
+  function onOpenChange(open: boolean) {
+    if (!open) {
+      setActiveId(null);
+      setPlaybackUrl(null);
+      setPlayerError(null);
+      setLoadingId(null);
+    }
   }
 
   const activeLesson = lessons.find((lesson) => lesson.id === activeId);
 
   return (
-    <section id="preview" className="border-b border-border bg-surface-container-low/50 py-16 sm:py-20">
+    <section id="preview" className="border-b border-border bg-section-wash py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="max-w-2xl">
+        <Reveal className="max-w-2xl">
           <p className="text-label-md uppercase text-primary">معاينة مجانية</p>
-          <h2 className="text-headline-md mt-2 text-on-surface">
+          <h2 className="text-headline-md mt-2 text-foreground">
             دروس تجريبية — تأسيس ومنهاج
           </h2>
-          <p className="mt-3 text-base leading-7 text-on-surface-variant">
+          <p className="mt-3 text-base leading-7 text-muted-foreground">
             جرّب أسلوب الشرح قبل الاشتراك. الدروس التجريبية متاحة بدون حساب أو
             تسجيل دخول.
           </p>
-        </div>
+        </Reveal>
 
         {loadError ? (
           <LoadErrorState description="تعذر تحميل الدروس التجريبية. تأكد من اتصال الخادم ثم أعد المحاولة." />
         ) : lessons.length === 0 ? (
-          <div className="mt-10 rounded-lg border border-dashed border-outline-variant bg-surface-container-lowest px-6 py-12 text-center">
-            <p className="font-display text-lg font-semibold text-on-surface">
+          <div className="mt-10 rounded-xl border border-dashed border-outline-variant bg-card px-6 py-12 text-center">
+            <p className="font-display text-lg font-semibold text-foreground">
               قريبًا دروس تجريبية جديدة
             </p>
-            <p className="mt-2 text-sm text-on-surface-variant">
+            <p className="mt-2 text-sm text-muted-foreground">
               يمكنك تصفّح خريطة المنهج كاملة، أو فتح تطبيق الطالب عند توفر الدروس.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <a
-                href="#catalog"
-                className="inline-flex rounded-md border border-border px-5 py-2.5 text-sm font-semibold text-on-surface hover:border-primary hover:text-primary"
-              >
-                عرض المنهج
-              </a>
-              <a
-                href={brand.studentAppUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary"
-              >
-                فتح تطبيق الطالب
-              </a>
+              <Button asChild variant="outline" size="lg">
+                <a href="#catalog">عرض المنهج</a>
+              </Button>
+              <Button asChild size="lg">
+                <a
+                  href={brand.studentAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  فتح تطبيق الطالب
+                </a>
+              </Button>
             </div>
           </div>
         ) : (
-          <div className="mt-10 space-y-10">
+          <div className="mt-10 space-y-12">
             {grouped.map((group) => (
               <div key={group.category}>
-                <h3 className="font-display text-lg font-semibold text-on-surface">
-                  {categoryLabel[group.category]}
-                </h3>
+                <Reveal>
+                  <h3 className="font-display text-lg font-semibold text-foreground">
+                    {categoryLabel[group.category]}
+                  </h3>
+                </Reveal>
                 <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {group.items.map((lesson) => {
+                  {group.items.map((lesson, index) => {
                     const duration = formatDuration(lesson.totalDurationSeconds);
+                    const cover = pickCover(lesson.id);
                     return (
                       <li key={lesson.id}>
-                        <button
-                          type="button"
-                          onClick={() => void openLesson(lesson)}
-                          className={cn(
-                            "flex h-full w-full flex-col rounded-lg border border-border bg-surface-container-lowest p-5 text-start transition-all hover:-translate-y-0.5 hover:border-primary",
-                            activeId === lesson.id && "border-primary",
-                          )}
+                        <motion.div
+                          initial={reduce ? false : { opacity: 0, y: 16 }}
+                          whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+                          viewport={{ once: true, margin: "-20px" }}
+                          transition={{ delay: index * 0.05, duration: 0.4 }}
                         >
-                          <span className="text-label-md inline-flex w-fit rounded-full bg-status-active-bg px-2 py-0.5 uppercase text-status-active">
-                            تجريبي
-                          </span>
-                          <span className="mt-3 font-display text-base font-semibold text-on-surface">
-                            {lesson.title}
-                          </span>
-                          <span className="mt-1 text-sm text-on-surface-variant">
-                            {lesson.unitTitle} · {lesson.chapterTitle}
-                          </span>
-                          <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary">
-                            <Play size={16} weight="fill" />
-                            {loadingId === lesson.id
-                              ? "جاري التحميل..."
-                              : duration
-                                ? `شاهد · ${duration}`
-                                : "شاهد الآن"}
-                          </span>
-                        </button>
+                          <Card
+                            className="group cursor-pointer overflow-hidden border-border/80 py-0 transition-shadow hover:shadow-lg"
+                            onClick={() => void openLesson(lesson)}
+                          >
+                            <div className="relative aspect-[16/10] overflow-hidden">
+                              <Image
+                                src={cover}
+                                alt=""
+                                fill
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/10 to-transparent" />
+                              <Badge className="absolute start-3 top-3 bg-status-active text-white hover:bg-status-active">
+                                تجريبي
+                              </Badge>
+                              <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+                                <span className="inline-flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
+                                  <Play size={22} weight="fill" />
+                                </span>
+                              </span>
+                            </div>
+                            <CardHeader className="gap-1 px-4 pt-4 pb-1">
+                              <CardTitle className="font-display text-base leading-snug">
+                                {lesson.title}
+                              </CardTitle>
+                              <CardDescription>
+                                {lesson.unitTitle} · {lesson.chapterTitle}
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent className="px-4 pb-4">
+                              <span className="inline-flex items-center gap-2 text-sm font-medium text-primary">
+                                <Play size={16} weight="fill" />
+                                {loadingId === lesson.id
+                                  ? "جاري التحميل..."
+                                  : duration
+                                    ? `شاهد · ${duration}`
+                                    : "شاهد الآن"}
+                              </span>
+                            </CardContent>
+                          </Card>
+                        </motion.div>
                       </li>
                     );
                   })}
@@ -164,56 +205,15 @@ export function PreviewLessons({ lessons, loadError = false }: Props) {
         )}
       </div>
 
-      {(playbackUrl || playerError) && activeLesson ? (
-        <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-inverse-surface/60 p-4 backdrop-blur-sm"
-          role="dialog"
-          aria-modal="true"
-          aria-label={activeLesson.title}
-        >
-          <div className="w-full max-w-3xl overflow-hidden rounded-xl border border-border bg-surface-container-lowest shadow-xl">
-            <div className="flex items-center justify-between border-b border-border px-4 py-3">
-              <div>
-                <p className="font-display font-semibold text-on-surface">
-                  {activeLesson.title}
-                </p>
-                <p className="text-xs text-on-surface-variant">
-                  {activeLesson.chapterTitle}
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={closePlayer}
-                className="rounded-md border border-border p-2 text-on-surface"
-                aria-label="إغلاق"
-              >
-                <X size={18} />
-              </button>
-            </div>
-            {playbackUrl ? (
-              <video
-                key={playbackUrl}
-                src={playbackUrl}
-                controls
-                autoPlay
-                className="aspect-video w-full bg-inverse-surface"
-              />
-            ) : (
-              <div className="px-6 py-12 text-center">
-                <p className="text-on-surface-variant">{playerError}</p>
-                <a
-                  href={brand.studentAppUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-flex rounded-md bg-primary px-4 py-2 text-sm font-semibold text-on-primary"
-                >
-                  فتح التطبيق
-                </a>
-              </div>
-            )}
-          </div>
-        </div>
-      ) : null}
+      <LessonPlayerDialog
+        open={Boolean(activeId)}
+        onOpenChange={onOpenChange}
+        title={activeLesson?.title ?? ""}
+        subtitle={activeLesson?.chapterTitle}
+        playbackUrl={playbackUrl}
+        loading={Boolean(loadingId && !playbackUrl && !playerError)}
+        error={playerError}
+      />
     </section>
   );
 }
