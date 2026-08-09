@@ -115,11 +115,12 @@ export function PreviewLessons({ lessons, loadError = false }: Props) {
               قريبًا دروس تجريبية جديدة
             </p>
             <p className="mt-2 text-sm text-muted-foreground">
-              يمكنك تصفّح خريطة المنهج كاملة، أو فتح تطبيق الطالب عند توفر الدروس.
+              يمكنك مشاهدة الدروس المجانية المنشورة، أو الاشتراك للوصول الكامل
+              عند توفر المزيد من المحتوى.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <Button asChild variant="outline" size="lg">
-                <a href="#catalog">عرض المنهج</a>
+                <a href="#catalog">الدروس المجانية</a>
               </Button>
               <Button asChild size="lg">
                 <a

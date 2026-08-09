@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Lock, Play } from "@phosphor-icons/react";
+import { useMemo, useState } from "react";
+import { Play } from "@phosphor-icons/react";
 import { CoverImage } from "@/components/CoverImage";
 import { LessonPlayerDialog } from "@/components/LessonPlayerDialog";
 import { Reveal } from "@/components/motion/Reveal";
@@ -25,6 +25,23 @@ type Props = {
   loadError?: boolean;
 };
 
+function filterPreviewUnits(units: PublicCatalogUnit[]): PublicCatalogUnit[] {
+  return units
+    .map((unit) => ({
+      ...unit,
+      chapters: unit.chapters
+        .map((chapter) => ({
+          ...chapter,
+          lessons: chapter.lessons.filter(
+            (lesson) =>
+              !lesson.isLocked && lesson.accessLevel === "preview",
+          ),
+        }))
+        .filter((chapter) => chapter.lessons.length > 0),
+    }))
+    .filter((unit) => unit.chapters.length > 0);
+}
+
 export function Catalog({ units, loadError = false }: Props) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [activeTitle, setActiveTitle] = useState<string | null>(null);
@@ -33,14 +50,10 @@ export function Catalog({ units, loadError = false }: Props) {
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [playerError, setPlayerError] = useState<string | null>(null);
 
+  const previewUnits = useMemo(() => filterPreviewUnits(units), [units]);
   const subscribeUrl = `${brand.studentAppUrl.replace(/\/$/, "")}/subscription`;
-  const hasContent = units.some((unit) =>
-    unit.chapters.some((chapter) => chapter.lessons.length > 0),
-  );
-
-  const visibleUnits = units.filter(
-    (unit) => !unit.chapters.every((chapter) => chapter.lessons.length === 0),
-  );
+  const hasContent = previewUnits.length > 0;
+  const visibleUnits = previewUnits;
 
   async function openPreview(lesson: {
     id: string;
@@ -82,26 +95,35 @@ export function Catalog({ units, loadError = false }: Props) {
     <section id="catalog" className="border-b border-border py-12 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
-          <p className="text-label-md uppercase text-primary">خريطة المنهج</p>
+          <p className="text-label-md uppercase text-primary">دروس مجانية</p>
           <h2 className="text-headline-md mt-2 text-foreground">
-            اطّلع على المنهج كاملًا قبل الاشتراك
+            اطّلع على بعض دروس المنهج التي تم نشرها مجانا للجميع
           </h2>
           <p className="mt-3 text-base leading-7 text-muted-foreground">
-            تصفّح الوحدات والدروس بدون حساب. الدروس التجريبية متاحة للمشاهدة،
-            والباقي يُفتح بعد الاشتراك.
+            عيّنة من الوحدات والدروس المتاحة للجميع بدون اشتراك. شاهد المحتوى
+            المفتوح هنا، والوصول الكامل للمنهج يكون بعد الاشتراك في الدورة.
           </p>
         </Reveal>
 
         {loadError ? (
-          <LoadErrorState description="تعذر تحميل خريطة المنهج. تأكد من اتصال الخادم ثم أعد المحاولة." />
+          <LoadErrorState description="تعذر تحميل الدروس المجانية. تأكد من اتصال الخادم ثم أعد المحاولة." />
         ) : !hasContent ? (
           <div className="mt-10 rounded-xl border border-dashed border-outline-variant bg-card px-6 py-12 text-center">
             <p className="font-display text-lg font-semibold text-foreground">
-              قريبًا خريطة المنهج الكاملة
+              قريبًا دروس مجانية من المنهج
             </p>
             <p className="mt-2 text-sm text-muted-foreground">
-              سيتم عرض الوحدات والدروس هنا فور نشرها من لوحة الإدارة.
+              سيتم نشر عيّنات من الدروس هنا فور توفرها. يمكنك مشاهدة الدروس
+              التجريبية أو الاشتراك للوصول الكامل.
             </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Button asChild variant="outline" size="lg">
+                <a href="#preview">الدروس التجريبية</a>
+              </Button>
+              <Button asChild size="lg">
+                <a href="#plans">الاشتراك في الدورة</a>
+              </Button>
+            </div>
           </div>
         ) : (
           <Reveal className="mt-10" delay={0.08}>
@@ -171,52 +193,6 @@ export function Catalog({ units, loadError = false }: Props) {
                                       .filter(Boolean)
                                       .join(" · ");
 
-                                    if (lesson.isLocked) {
-                                      return (
-                                        <li
-                                          key={lesson.id}
-                                          className="flex flex-col gap-2 px-3 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-3 sm:px-4"
-                                        >
-                                          <div className="min-w-0">
-                                            <div className="flex flex-wrap items-center gap-2">
-                                              <Badge
-                                                variant="secondary"
-                                                className="gap-1"
-                                              >
-                                                <Lock size={12} weight="bold" />
-                                                مقفل
-                                              </Badge>
-                                              <span className="font-medium text-foreground">
-                                                {lesson.title}
-                                              </span>
-                                            </div>
-                                            {meta ? (
-                                              <p className="mt-1 text-xs text-muted-foreground">
-                                                {meta}
-                                              </p>
-                                            ) : null}
-                                          </div>
-                                          <Button
-                                            asChild
-                                            variant="link"
-                                            className="h-auto justify-start px-0 sm:justify-center"
-                                          >
-                                            <a
-                                              href="#plans"
-                                              onClick={() =>
-                                                captureLandingEvent(
-                                                  "catalog_subscribe_cta",
-                                                  { lessonId: lesson.id },
-                                                )
-                                              }
-                                            >
-                                              اشترك للوصول
-                                            </a>
-                                          </Button>
-                                        </li>
-                                      );
-                                    }
-
                                     return (
                                       <li key={lesson.id}>
                                         <button
@@ -233,7 +209,7 @@ export function Catalog({ units, loadError = false }: Props) {
                                           <div className="min-w-0">
                                             <div className="flex flex-wrap items-center gap-2">
                                               <Badge className="bg-status-active text-white hover:bg-status-active">
-                                                تجريبي
+                                                مجاني
                                               </Badge>
                                               <span className="font-medium text-foreground">
                                                 {lesson.title}
@@ -271,9 +247,9 @@ export function Catalog({ units, loadError = false }: Props) {
 
         {!loadError && hasContent ? (
           <p className="mt-8 text-center text-sm text-muted-foreground">
-            الوصول الكامل للدروس المقفلّة عبر{" "}
+            للوصول الكامل لجميع دروس المنهج،{" "}
             <a href="#plans" className="font-semibold text-primary hover:underline">
-              الباقات
+              اشترك في الدورة الخاصة
             </a>{" "}
             أو{" "}
             <a
@@ -282,7 +258,7 @@ export function Catalog({ units, loadError = false }: Props) {
               rel="noopener noreferrer"
               className="font-semibold text-primary hover:underline"
             >
-              تطبيق الطالب
+              افتح تطبيق الطالب
             </a>
             .
           </p>

@@ -8,6 +8,7 @@ import { PreviewLessons } from "@/components/PreviewLessons";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
 import { Stats } from "@/components/Stats";
+import { SuccessBoard } from "@/components/SuccessBoard";
 import {
   fetchPreviewLessons,
   fetchPublicCatalog,
@@ -40,6 +41,7 @@ export default async function HomePage() {
         />
         <Plans plans={plansResult.data} loadError={plansResult.error} />
         <About />
+        <SuccessBoard />
         <Contact />
       </main>
       <SiteFooter />

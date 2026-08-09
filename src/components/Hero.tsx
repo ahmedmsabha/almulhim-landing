@@ -76,8 +76,8 @@ export function Hero() {
             variants={item}
             className="mt-3 max-w-xl text-[0.95rem] leading-7 text-white/85 sm:mt-4 sm:text-lg sm:leading-8"
           >
-            منصة تعليمية مبسّطة لطلاب التوجيهي في الفيزياء — تصفّح المنهج والدروس
-            التجريبية بدون حساب.
+            منصة تعليمية مبسّطة لطلاب التوجيهي في الفيزياء — جرّب دروسًا مجانية
+            وتعرّف على أسلوب الأستاذ علي جودة قبل الاشتراك.
           </motion.p>
 
           <motion.div
@@ -104,11 +104,11 @@ export function Hero() {
               className="h-12 w-full gap-2 border-white/30 bg-white/5 px-5 text-base text-white backdrop-blur-sm hover:bg-white/15 hover:text-white sm:h-11 sm:w-auto"
             >
               <a
-                href="#catalog"
-                onClick={() => captureLandingEvent("hero_catalog_click")}
+                href="#plans"
+                onClick={() => captureLandingEvent("hero_plans_click")}
               >
                 <GraduationCap size={20} weight="duotone" />
-                اطّلع على المنهج
+                الاشتراك في الدورة الخاصّة
               </a>
             </Button>
           </motion.div>

@@ -5,9 +5,9 @@ import { brand } from "@/lib/brand";
 const links = [
   { href: "#home", label: "الرئيسية" },
   { href: "#preview", label: "الدروس التجريبية" },
-  { href: "#catalog", label: "المنهج" },
-  { href: "#plans", label: "الباقات" },
-  { href: "#about", label: "عن المنصة" },
+  { href: "#plans", label: "الاشتراك في الدورة الخاصة" },
+  { href: "#about", label: "آراء الطلبة بدورة الأونلاين" },
+  { href: "#success", label: "نجاحاتنا" },
   { href: "#contact", label: "تواصل" },
 ] as const;
 

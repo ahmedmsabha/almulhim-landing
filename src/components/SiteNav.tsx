@@ -19,9 +19,9 @@ import { cn } from "@/lib/utils";
 const links = [
   { href: "#home", label: "الرئيسية" },
   { href: "#preview", label: "الدروس التجريبية" },
-  { href: "#catalog", label: "المنهج" },
-  { href: "#plans", label: "الباقات" },
-  { href: "#about", label: "عن المنصة" },
+  { href: "#plans", label: "الاشتراك في الدورة الخاصة" },
+  { href: "#about", label: "آراء الطلبة بدورة الأونلاين" },
+  { href: "#success", label: "نجاحاتنا" },
   { href: "#contact", label: "تواصل" },
 ] as const;
 
@@ -70,7 +70,7 @@ export function SiteNav() {
                 scrolled ? "text-muted-foreground" : "text-white/70",
               )}
             >
-              تصفّح بدون حساب
+              الأستاذ القدير علي جودة
             </p>
           </div>
         </Link>
