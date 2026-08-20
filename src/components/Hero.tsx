@@ -50,7 +50,7 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-4 pb-16 pt-28 sm:px-6 sm:pb-28 sm:pt-32 lg:flex-row-reverse lg:items-end lg:gap-6">
         <motion.div
-          className="relative h-[min(52svh,420px)] w-full max-w-md shrink-0 lg:h-[min(70svh,640px)] lg:w-[min(46%,520px)] lg:max-w-none"
+          className="relative h-[min(58svh,520px)] w-full shrink-0 lg:h-[min(78svh,760px)] lg:w-[min(52vw,760px)]"
           initial={reduce ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -60,7 +60,7 @@ export function Hero() {
             alt="الأستاذ علي جودة"
             fill
             priority
-            sizes="(min-width: 1024px) 46vw, 90vw"
+            sizes="(min-width: 1024px) 52vw, 100vw"
             className="hero-teacher-photo object-contain object-bottom"
           />
         </motion.div>

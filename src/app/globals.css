@@ -277,11 +277,11 @@
   @media (min-width: 1024px) {
     .hero-teacher-photo {
       mask-image:
-        linear-gradient(to top, transparent 0%, #000 6%, #000 88%, transparent 100%),
-        linear-gradient(to left, transparent 0%, #000 18%, #000 100%);
+        linear-gradient(to top, transparent 0%, #000 8%, #000 92%, transparent 100%),
+        linear-gradient(to left, transparent 0%, #000 6%, #000 100%);
       -webkit-mask-image:
-        linear-gradient(to top, transparent 0%, #000 6%, #000 88%, transparent 100%),
-        linear-gradient(to left, transparent 0%, #000 18%, #000 100%);
+        linear-gradient(to top, transparent 0%, #000 8%, #000 92%, transparent 100%),
+        linear-gradient(to left, transparent 0%, #000 6%, #000 100%);
       mask-composite: intersect;
       -webkit-mask-composite: source-in;
     }

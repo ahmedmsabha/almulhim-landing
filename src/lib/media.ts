@@ -16,7 +16,7 @@ export const media = {
     unsplash("photo-1635070041078-e363dbe005cb", 800),
     unsplash("photo-1524995997946-a1c2e315a42f", 800),
     unsplash("photo-1503676260728-1c00da094a0b", 800),
-    unsplash("photo-1532094349887-57388f00d8a5", 800),
+    unsplash("photo-1567427017947-545c5f8d16ad", 800),
     unsplash("photo-1580582932707-520aed937b7b", 800),
     unsplash("photo-1516321318423-f06f85e504b3", 800),
     unsplash("photo-1497633762265-9d179a990aa6", 800),
