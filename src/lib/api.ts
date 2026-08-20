@@ -60,6 +60,14 @@ export type PublicCatalogUnit = {
   chapters: PublicCatalogChapter[];
 };
 
+export type PublicHomeVideo = {
+  id: string;
+  title: string;
+  sortOrder: number;
+  playbackUrl: string;
+  playbackExpiresInSeconds: number;
+};
+
 export type FetchResult<T> = {
   data: T;
   error: boolean;
@@ -115,6 +123,19 @@ export async function fetchPublicCatalog(): Promise<
       "/content/public/catalog",
     );
     return { data: data.units, error: false };
+  } catch {
+    return { data: [], error: true };
+  }
+}
+
+export async function fetchHomeVideos(): Promise<
+  FetchResult<PublicHomeVideo[]>
+> {
+  try {
+    const data = await apiFetch<{ homeVideos: PublicHomeVideo[] }>(
+      "/home-videos/public",
+    );
+    return { data: data.homeVideos, error: false };
   } catch {
     return { data: [], error: true };
   }

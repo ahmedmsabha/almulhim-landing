@@ -19,7 +19,7 @@ export function SuccessBoard() {
   return (
     <section id="success" className="border-b border-border py-12 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal className="max-w-2xl">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-label-md uppercase text-primary">نجاحاتنا</p>
           <h2 className="text-headline-md mt-2 text-foreground">لوحة الشرف</h2>
           <p className="mt-3 text-base leading-7 text-muted-foreground">
@@ -28,10 +28,10 @@ export function SuccessBoard() {
           </p>
         </Reveal>
 
-        <Stagger className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+        <Stagger className="mx-auto mt-10 grid max-w-5xl gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           {honorees.map((student, index) => (
             <StaggerItem key={student.name}>
-              <div className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3.5 sm:px-5 sm:py-4">
+              <div className="flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 sm:px-5 sm:py-4">
                 <span
                   className={`inline-flex size-10 shrink-0 items-center justify-center rounded-lg ${
                     index < 3

@@ -34,7 +34,7 @@ export function About() {
   return (
     <section id="about" className="border-b border-border bg-section-wash py-12 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal className="max-w-2xl">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-label-md uppercase text-primary">آراء الطلاب</p>
           <h2 className="text-headline-md mt-2 text-foreground">
             آراء الطلبة بدورة الأونلاين
@@ -45,10 +45,10 @@ export function About() {
           </p>
         </Reveal>
 
-        <Stagger className="mt-10 grid gap-5 sm:grid-cols-2 sm:gap-6">
+        <Stagger className="mx-auto mt-10 grid max-w-4xl gap-5 sm:grid-cols-2 sm:gap-6">
           {testimonials.map(({ quote, name, detail }) => (
             <StaggerItem key={name}>
-              <figure className="flex h-full flex-col rounded-xl border border-border bg-card p-5 sm:p-6">
+              <figure className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 sm:p-7">
                 <Quotes
                   size={28}
                   weight="fill"

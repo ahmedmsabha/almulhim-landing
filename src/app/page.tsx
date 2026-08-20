@@ -3,6 +3,7 @@ import { Catalog } from "@/components/Catalog";
 import { Contact } from "@/components/Contact";
 import { Features } from "@/components/Features";
 import { Hero } from "@/components/Hero";
+import { HomeVideos } from "@/components/HomeVideos";
 import { Plans } from "@/components/Plans";
 import { PreviewLessons } from "@/components/PreviewLessons";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -10,6 +11,7 @@ import { SiteNav } from "@/components/SiteNav";
 import { Stats } from "@/components/Stats";
 import { SuccessBoard } from "@/components/SuccessBoard";
 import {
+  fetchHomeVideos,
   fetchPreviewLessons,
   fetchPublicCatalog,
   fetchPublicPlans,
@@ -18,11 +20,13 @@ import {
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [plansResult, lessonsResult, catalogResult] = await Promise.all([
-    fetchPublicPlans(),
-    fetchPreviewLessons(),
-    fetchPublicCatalog(),
-  ]);
+  const [plansResult, lessonsResult, catalogResult, homeVideosResult] =
+    await Promise.all([
+      fetchPublicPlans(),
+      fetchPreviewLessons(),
+      fetchPublicCatalog(),
+      fetchHomeVideos(),
+    ]);
 
   return (
     <>
@@ -40,6 +44,10 @@ export default async function HomePage() {
           loadError={catalogResult.error}
         />
         <Plans plans={plansResult.data} loadError={plansResult.error} />
+        <HomeVideos
+          videos={homeVideosResult.data}
+          loadError={homeVideosResult.error}
+        />
         <About />
         <SuccessBoard />
         <Contact />

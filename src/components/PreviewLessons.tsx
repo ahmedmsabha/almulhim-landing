@@ -96,7 +96,7 @@ export function PreviewLessons({ lessons, loadError = false }: Props) {
   return (
     <section id="preview" className="border-b border-border bg-section-wash py-12 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal className="max-w-2xl">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-label-md uppercase text-primary">معاينة مجانية</p>
           <h2 className="text-headline-md mt-2 text-foreground">
             دروس تجريبية — تأسيس ومنهاج
