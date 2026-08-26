@@ -1,28 +1,28 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { List } from "@phosphor-icons/react";
-import { Button } from "@/components/ui/button";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { List } from '@phosphor-icons/react';
+import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { brand } from "@/lib/brand";
-import { captureLandingEvent } from "@/lib/posthog/capture";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/sheet';
+import { brand } from '@/lib/brand';
+import { captureLandingEvent } from '@/lib/posthog/capture';
+import { cn } from '@/lib/utils';
 
 const links = [
-  { href: "#home", label: "الرئيسية" },
-  { href: "#preview", label: "الدروس التجريبية" },
-  { href: "#plans", label: "الاشتراك في الدورة الخاصة" },
-  { href: "#about", label: "آراء الطلبة بدورة الأونلاين" },
-  { href: "#success", label: "نجاحاتنا" },
-  { href: "#contact", label: "تواصل" },
+  { href: '#home', label: 'الرئيسية' },
+  { href: '#preview', label: 'الدروس التجريبية' },
+  { href: '#plans', label: 'الاشتراك في الدورة الخاصة' },
+  { href: '#about', label: 'آراء الطلبة بدورة الأونلاين' },
+  { href: '#success', label: 'نجاحاتنا' },
+  { href: '#contact', label: 'تواصل' },
 ] as const;
 
 export function SiteNav() {
@@ -32,21 +32,27 @@ export function SiteNav() {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener('scroll', onScroll, {
+      passive: true,
+    });
+    return () =>
+      window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter,border-color] duration-300",
+        'fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter,border-color] duration-300',
         scrolled
-          ? "border-b border-border/80 bg-background/90 shadow-sm backdrop-blur-md"
-          : "border-b border-transparent bg-transparent",
+          ? 'border-b border-border/80 bg-background/90 shadow-sm backdrop-blur-md'
+          : 'border-b border-transparent bg-transparent',
       )}
     >
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 px-3 sm:h-16 sm:gap-4 sm:px-6">
-        <Link href="#home" className="flex min-w-0 items-center gap-2 sm:gap-3">
+        <Link
+          href="#home"
+          className="flex min-w-0 items-center gap-2 sm:gap-3"
+        >
           <Image
             src="/logo.jpg"
             alt={brand.shortNameAr}
@@ -58,19 +64,21 @@ export function SiteNav() {
           <div className="min-w-0 leading-tight">
             <p
               className={cn(
-                "font-display truncate text-sm font-bold transition-colors sm:text-base",
-                scrolled ? "text-foreground" : "text-white",
+                'font-display truncate text-sm font-bold transition-colors sm:text-base',
+                scrolled ? 'text-foreground' : 'text-white',
               )}
             >
               {brand.shortNameAr}
             </p>
             <p
               className={cn(
-                "hidden text-xs transition-colors sm:block",
-                scrolled ? "text-muted-foreground" : "text-white/70",
+                'hidden text-xs transition-colors sm:block',
+                scrolled
+                  ? 'text-muted-foreground'
+                  : 'text-white/70',
               )}
             >
-              الأستاذ القدير علي جودة
+              الأستاذ علي جودة
             </p>
           </div>
         </Link>
@@ -81,8 +89,10 @@ export function SiteNav() {
               key={link.href}
               href={link.href}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                scrolled ? "text-muted-foreground" : "text-white/85 hover:text-white",
+                'text-sm font-medium transition-colors hover:text-primary',
+                scrolled
+                  ? 'text-muted-foreground'
+                  : 'text-white/85 hover:text-white',
               )}
             >
               {link.label}
@@ -95,16 +105,18 @@ export function SiteNav() {
             asChild
             size="lg"
             className={cn(
-              "h-9 px-3 text-sm sm:px-4",
+              'h-9 px-3 text-sm sm:px-4',
               !scrolled &&
-                "bg-gold text-navy hover:bg-gold-soft shadow-none",
+                'bg-gold text-navy hover:bg-gold-soft shadow-none',
             )}
           >
             <a
               href={brand.studentAppUrl}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => captureLandingEvent("nav_start_click")}
+              onClick={() =>
+                captureLandingEvent('nav_start_click')
+              }
             >
               ابدأ الآن
             </a>
@@ -116,16 +128,19 @@ export function SiteNav() {
                 variant="outline"
                 size="icon"
                 className={cn(
-                  "md:hidden",
+                  'md:hidden',
                   !scrolled &&
-                    "border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white",
+                    'border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white',
                 )}
                 aria-label="فتح القائمة"
               >
                 <List size={20} />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[min(100%,20rem)]">
+            <SheetContent
+              side="right"
+              className="w-[min(100%,20rem)]"
+            >
               <SheetHeader>
                 <SheetTitle className="font-display text-start">
                   {brand.shortNameAr}
@@ -142,14 +157,20 @@ export function SiteNav() {
                     {link.label}
                   </a>
                 ))}
-                <Button asChild size="lg" className="mt-4 w-full bg-gold text-navy hover:bg-gold-soft">
+                <Button
+                  asChild
+                  size="lg"
+                  className="mt-4 w-full bg-gold text-navy hover:bg-gold-soft"
+                >
                   <a
                     href={brand.studentAppUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => {
                       setOpen(false);
-                      captureLandingEvent("nav_start_click");
+                      captureLandingEvent(
+                        'nav_start_click',
+                      );
                     }}
                   >
                     ابدأ الآن
