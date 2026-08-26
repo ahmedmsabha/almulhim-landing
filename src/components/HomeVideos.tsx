@@ -6,23 +6,59 @@ import { PlayCircle } from "@phosphor-icons/react";
 import { LessonPlayerDialog } from "@/components/LessonPlayerDialog";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import type { PublicHomeVideo } from "@/lib/api";
+import { fetchHomeVideosFresh } from "@/lib/api";
+import { captureLandingEvent } from "@/lib/posthog/capture";
 
 type HomeVideosProps = {
   videos: PublicHomeVideo[];
   loadError?: boolean;
 };
 
+function firstFrameSrc(url: string): string {
+  const hashIndex = url.indexOf("#");
+  const base = hashIndex === -1 ? url : url.slice(0, hashIndex);
+  return `${base}#t=0.1`;
+}
+
 export function HomeVideos({ videos, loadError = false }: HomeVideosProps) {
   const [active, setActive] = useState<PublicHomeVideo | null>(null);
+  const [playbackUrl, setPlaybackUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [playerError, setPlayerError] = useState<string | null>(null);
 
   if (!loadError && videos.length === 0) {
     return null;
   }
 
+  async function openVideo(video: PublicHomeVideo) {
+    captureLandingEvent("home_video_open", { videoId: video.id });
+    setPlayerError(null);
+    setActive(video);
+    setPlaybackUrl(null);
+    setLoading(true);
+
+    const result = await fetchHomeVideosFresh();
+    setLoading(false);
+
+    const fresh = result.data.find((item) => item.id === video.id);
+    if (fresh?.playbackUrl) {
+      setActive(fresh);
+      setPlaybackUrl(fresh.playbackUrl);
+      return;
+    }
+
+    if (video.playbackUrl) {
+      setPlaybackUrl(video.playbackUrl);
+      return;
+    }
+
+    setPlayerError("تعذر تشغيل الفيديو حالياً. حاول لاحقاً.");
+  }
+
   return (
     <section
       id="home-videos"
-      className="border-b border-border py-12 sm:py-20"
+      className="scroll-mt-16 border-b border-border py-12 sm:py-20"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
@@ -41,22 +77,41 @@ export function HomeVideos({ videos, loadError = false }: HomeVideosProps) {
             تعذر تحميل الفيديوهات حالياً. حاول لاحقاً.
           </p>
         ) : (
-          <Stagger className="mx-auto mt-10 grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Stagger className="mx-auto mt-10 grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {videos.map((video) => (
               <StaggerItem key={video.id}>
                 <button
                   type="button"
-                  onClick={() => setActive(video)}
-                  className="flex h-full w-full flex-col rounded-2xl border border-border bg-card p-5 text-start transition-colors hover:border-primary/40 hover:bg-secondary/40"
+                  onClick={() => {
+                    void openVideo(video);
+                  }}
+                  className="group flex w-full flex-col text-start"
                 >
-                  <span className="inline-flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                    <PlayCircle size={28} weight="duotone" aria-hidden />
+                  <span className="relative aspect-[9/16] overflow-hidden rounded-2xl border border-border bg-navy">
+                    <video
+                      src={firstFrameSrc(video.playbackUrl)}
+                      muted
+                      playsInline
+                      preload="metadata"
+                      className="h-full w-full object-cover"
+                      onLoadedMetadata={(event) => {
+                        const el = event.currentTarget;
+                        if (el.currentTime < 0.05) {
+                          el.currentTime = 0.1;
+                        }
+                      }}
+                    />
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors group-hover:bg-black/40">
+                      <PlayCircle
+                        size={52}
+                        weight="fill"
+                        className="text-white"
+                        aria-hidden
+                      />
+                    </span>
                   </span>
-                  <span className="mt-4 font-display text-base font-semibold text-foreground">
+                  <span className="mt-3 font-display text-sm font-semibold text-foreground sm:text-base">
                     {video.title}
-                  </span>
-                  <span className="mt-2 text-sm text-muted-foreground">
-                    اضغط للمشاهدة
                   </span>
                 </button>
               </StaggerItem>
@@ -66,12 +121,20 @@ export function HomeVideos({ videos, loadError = false }: HomeVideosProps) {
       </div>
 
       <LessonPlayerDialog
+        variant="portrait"
         open={active != null}
         onOpenChange={(open) => {
-          if (!open) setActive(null);
+          if (!open) {
+            setActive(null);
+            setPlaybackUrl(null);
+            setPlayerError(null);
+            setLoading(false);
+          }
         }}
         title={active?.title ?? ""}
-        playbackUrl={active?.playbackUrl ?? null}
+        playbackUrl={playbackUrl}
+        loading={loading}
+        error={playerError}
       />
     </section>
   );

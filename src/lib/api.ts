@@ -141,6 +141,25 @@ export async function fetchHomeVideos(): Promise<
   }
 }
 
+/** Client-side refetch so playback URLs are not served from a stale cache. */
+export async function fetchHomeVideosFresh(): Promise<
+  FetchResult<PublicHomeVideo[]>
+> {
+  try {
+    const response = await fetch(`${API_URL}/home-videos/public`, {
+      cache: "no-store",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (!response.ok) {
+      throw new Error(`API /home-videos/public failed (${response.status})`);
+    }
+    const data = (await response.json()) as { homeVideos: PublicHomeVideo[] };
+    return { data: data.homeVideos, error: false };
+  } catch {
+    return { data: [], error: true };
+  }
+}
+
 export async function fetchPreviewLessonDetail(
   lessonId: string,
 ): Promise<PublicPreviewLessonDetail | null> {
