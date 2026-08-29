@@ -60,9 +60,19 @@ export type PublicCatalogUnit = {
   chapters: PublicCatalogChapter[];
 };
 
+export type HomeVideoTitleSize = "sm" | "md" | "lg" | "xl";
+export type HomeVideoTitleColor = "default" | "muted" | "primary" | "gold";
+
+export type HomeVideoTitleLine = {
+  text: string;
+  size: HomeVideoTitleSize;
+  color: HomeVideoTitleColor;
+};
+
 export type PublicHomeVideo = {
   id: string;
   title: string;
+  titleLines?: HomeVideoTitleLine[] | null;
   sortOrder: number;
   playbackUrl: string;
   playbackExpiresInSeconds: number;

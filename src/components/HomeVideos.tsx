@@ -7,6 +7,11 @@ import { LessonPlayerDialog } from "@/components/LessonPlayerDialog";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import type { PublicHomeVideo } from "@/lib/api";
 import { fetchHomeVideosFresh } from "@/lib/api";
+import {
+  HOME_VIDEO_TITLE_COLOR_CLASS,
+  HOME_VIDEO_TITLE_SIZE_CLASS,
+  resolveTitleLines,
+} from "@/lib/home-video-title";
 import { captureLandingEvent } from "@/lib/posthog/capture";
 
 type HomeVideosProps = {
@@ -110,8 +115,15 @@ export function HomeVideos({ videos, loadError = false }: HomeVideosProps) {
                       />
                     </span>
                   </span>
-                  <span className="mt-3 font-display text-sm font-semibold text-foreground sm:text-base">
-                    {video.title}
+                  <span className="mt-3 flex flex-col font-display font-semibold">
+                    {resolveTitleLines(video).map((line, index) => (
+                      <span
+                        key={index}
+                        className={`${HOME_VIDEO_TITLE_SIZE_CLASS[line.size]} ${HOME_VIDEO_TITLE_COLOR_CLASS[line.color]}`}
+                      >
+                        {line.text}
+                      </span>
+                    ))}
                   </span>
                 </button>
               </StaggerItem>
