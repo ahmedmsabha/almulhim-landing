@@ -152,13 +152,13 @@ export function Hero() {
                     "linear-gradient(325deg, #e8d48b 0%, #c9a227 55%, #8a6d12 100%)",
                 }}
               >
-                <div className="relative aspect-square w-[min(52vw,200px)] overflow-hidden rounded-[1.15rem] sm:w-[220px] lg:w-[248px]">
+                <div className="relative aspect-square w-[min(62vw,240px)] overflow-hidden rounded-[1.15rem] sm:w-[280px] lg:w-[320px] xl:w-[352px]">
                   <Image
                     src="/t_ali_photo.jpg"
                     alt="الأستاذ علي جودة"
                     fill
                     priority
-                    sizes="(min-width: 1024px) 248px, (min-width: 640px) 220px, 200px"
+                    sizes="(min-width: 1280px) 352px, (min-width: 1024px) 320px, (min-width: 640px) 280px, 62vw"
                     className="object-cover object-[center_18%]"
                   />
                 </div>
