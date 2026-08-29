@@ -24,10 +24,9 @@ export const metadata: Metadata = {
   ),
   title: `${brand.shortNameAr} | ${brand.tagline}`,
   description: brand.description,
-  icons: {
-    icon: "/logo.jpg",
-    apple: "/logo.jpg",
-  },
+  // Icons come from the app/ file conventions (favicon.ico, icon.png,
+  // apple-icon.png). Those take precedence over this field, so pointing it at
+  // logo.jpg only shipped a 1254px JPEG that browsers ignored.
   openGraph: {
     title: `${brand.shortNameAr} — ${brand.tagline}`,
     description: brand.description,
