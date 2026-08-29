@@ -9,7 +9,6 @@ import { PreviewLessons } from "@/components/PreviewLessons";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
 import { Stats } from "@/components/Stats";
-import { SuccessBoard } from "@/components/SuccessBoard";
 import {
   fetchHomeVideos,
   fetchPreviewLessons,
@@ -49,7 +48,6 @@ export default async function HomePage() {
           loadError={homeVideosResult.error}
         />
         <About />
-        <SuccessBoard />
         <Contact />
       </main>
       <SiteFooter />

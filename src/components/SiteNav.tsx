@@ -22,7 +22,6 @@ const links = [
   { href: '#plans', label: 'الاشتراك في الدورة الخاصة' },
   { href: '#home-videos', label: 'فيديوهات تعريفية' },
   { href: '#about', label: 'آراء الطلبة بدورة الأونلاين' },
-  { href: '#success', label: 'نجاحاتنا' },
   { href: '#contact', label: 'تواصل' },
 ] as const;
 
