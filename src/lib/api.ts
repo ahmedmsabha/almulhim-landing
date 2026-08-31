@@ -4,10 +4,13 @@ export type PublicPlan = {
   id?: string;
   name: string;
   description: string | null;
-  priceAmount: number;
+  priceGaza: number;
+  priceWestBank: number;
   currency: string;
-  durationDays: number;
+  accessEndsAt: string;
+  startsAt: string | null;
   sortOrder: number;
+  units: Array<{ id: string; title: string }>;
 };
 
 export type PublicPreviewLesson = {

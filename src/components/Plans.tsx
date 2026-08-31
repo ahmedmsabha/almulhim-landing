@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Check } from "@phosphor-icons/react";
 import { motion, useReducedMotion } from "motion/react";
 import { Reveal } from "@/components/motion/Reveal";
@@ -16,17 +17,25 @@ import {
 import type { PublicPlan } from "@/lib/api";
 import { brand } from "@/lib/brand";
 import { captureLandingEvent } from "@/lib/posthog/capture";
-import { cn, formatDurationDays, formatPrice } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import { LoadErrorState } from "./LoadErrorState";
+
+type Region = "gaza" | "west_bank";
 
 type Props = {
   plans: PublicPlan[];
   loadError?: boolean;
 };
 
+function planStartsInFuture(plan: PublicPlan): boolean {
+  if (!plan.startsAt) return false;
+  return new Date(plan.startsAt).getTime() > Date.now();
+}
+
 export function Plans({ plans, loadError = false }: Props) {
   const reduce = useReducedMotion();
   const subscribeUrl = `${brand.studentAppUrl.replace(/\/$/, "")}/subscription`;
+  const [region, setRegion] = useState<Region>("gaza");
 
   return (
     <section
@@ -64,97 +73,133 @@ export function Plans({ plans, loadError = false }: Props) {
             </Button>
           </div>
         ) : (
-          <ul className="mx-auto mt-8 grid max-w-4xl gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {plans.map((plan, index) => {
-              const featured = index === Math.min(1, plans.length - 1);
-              return (
-                <li key={`${plan.name}-${plan.sortOrder}-${index}`}>
-                  <motion.div
-                    initial={reduce ? false : { opacity: 0, y: 18 }}
-                    whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.08, duration: 0.45 }}
-                    whileHover={reduce ? undefined : { y: -4 }}
-                    className="h-full"
-                  >
-                    <Card
-                      className={cn(
-                        "h-full border-white/10 bg-white/5 text-white shadow-none",
-                        featured &&
-                          "border-gold/60 bg-white/10 ring-1 ring-gold/40",
-                      )}
+          <>
+            <div className="mx-auto mt-8 flex max-w-xs justify-center gap-2 rounded-full border border-white/15 bg-white/5 p-1">
+              {(
+                [
+                  { id: "gaza" as const, label: "غزة" },
+                  { id: "west_bank" as const, label: "الضفة" },
+                ] as const
+              ).map((option) => (
+                <button
+                  key={option.id}
+                  type="button"
+                  onClick={() => setRegion(option.id)}
+                  className={cn(
+                    "flex-1 rounded-full px-4 py-2 text-sm font-medium transition",
+                    region === option.id
+                      ? "bg-gold text-navy"
+                      : "text-white/70 hover:text-white",
+                  )}
+                  aria-pressed={region === option.id}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+            <ul className="mx-auto mt-8 grid max-w-4xl gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {plans.map((plan, index) => {
+                const featured = index === Math.min(1, plans.length - 1);
+                const priceAmount =
+                  region === "west_bank" ? plan.priceWestBank : plan.priceGaza;
+                const unitTitles =
+                  plan.units?.map((unit) => unit.title).filter(Boolean) ?? [];
+                return (
+                  <li key={`${plan.name}-${plan.sortOrder}-${index}`}>
+                    <motion.div
+                      initial={reduce ? false : { opacity: 0, y: 18 }}
+                      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.08, duration: 0.45 }}
+                      whileHover={reduce ? undefined : { y: -4 }}
+                      className="h-full"
                     >
-                      <CardHeader>
-                        {featured ? (
-                          <Badge className="mb-1 w-fit bg-gold text-navy hover:bg-gold">
-                            موصى به
-                          </Badge>
-                        ) : null}
-                        <CardTitle className="font-display text-xl text-white">
-                          {plan.name}
-                        </CardTitle>
-                        <CardDescription className="text-white/65">
-                          {formatDurationDays(plan.durationDays)}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="font-display text-3xl font-bold text-gold">
-                          {formatPrice(plan.priceAmount, plan.currency)}
-                        </p>
-                        {plan.description ? (
-                          <p className="mt-3 text-sm leading-6 text-white/70">
-                            {plan.description}
+                      <Card
+                        className={cn(
+                          "h-full border-white/10 bg-white/5 text-white shadow-none",
+                          featured &&
+                            "border-gold/60 bg-white/10 ring-1 ring-gold/40",
+                        )}
+                      >
+                        <CardHeader>
+                          {featured ? (
+                            <Badge className="mb-1 w-fit bg-gold text-navy hover:bg-gold">
+                              موصى به
+                            </Badge>
+                          ) : null}
+                          {planStartsInFuture(plan) ? (
+                            <Badge
+                              variant="outline"
+                              className="mb-1 w-fit border-gold/50 text-gold"
+                            >
+                              يبدأ في يناير
+                            </Badge>
+                          ) : null}
+                          <CardTitle className="font-display text-xl text-white">
+                            {plan.name}
+                          </CardTitle>
+                          <CardDescription className="text-white/65">
+                            متاح طوال السنة الدراسية
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="font-display text-3xl font-bold text-gold">
+                            {formatPrice(priceAmount, plan.currency)}
                           </p>
-                        ) : null}
-                        <ul className="mt-5 space-y-2 text-sm text-white/75">
-                          {[
-                            "وصول لجميع الدروس المنشورة",
-                            "ملخصات وملفات PDF",
-                            "دعم ومتابعة عبر التطبيق",
-                          ].map((item) => (
-                            <li key={item} className="flex items-start gap-2">
-                              <Check
-                                size={18}
-                                weight="bold"
-                                className="mt-0.5 shrink-0 text-gold"
-                              />
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                      <CardFooter className="border-white/10 bg-transparent">
-                        <Button
-                          asChild
-                          size="lg"
-                          className={cn(
-                            "w-full",
-                            featured
-                              ? "bg-gold text-navy hover:bg-gold-soft"
-                              : "border-white/25 bg-transparent text-white hover:bg-white/10",
-                          )}
-                          variant={featured ? "default" : "outline"}
-                        >
-                          <a
-                            href={subscribeUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() =>
-                              captureLandingEvent("plan_cta_click", {
-                                planName: plan.name,
-                              })
-                            }
+                          {plan.description ? (
+                            <p className="mt-3 text-sm leading-6 text-white/70">
+                              {plan.description}
+                            </p>
+                          ) : null}
+                          <ul className="mt-5 space-y-2 text-sm text-white/75">
+                            {(unitTitles.length > 0
+                              ? unitTitles
+                              : ["وصول للدروس المشمولة في الباقة"]
+                            ).map((item) => (
+                              <li key={item} className="flex items-start gap-2">
+                                <Check
+                                  size={18}
+                                  weight="bold"
+                                  className="mt-0.5 shrink-0 text-gold"
+                                />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                        <CardFooter className="border-white/10 bg-transparent">
+                          <Button
+                            asChild
+                            size="lg"
+                            className={cn(
+                              "w-full",
+                              featured
+                                ? "bg-gold text-navy hover:bg-gold-soft"
+                                : "border-white/25 bg-transparent text-white hover:bg-white/10",
+                            )}
+                            variant={featured ? "default" : "outline"}
                           >
-                            اشترك الآن
-                          </a>
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  </motion.div>
-                </li>
-              );
-            })}
-          </ul>
+                            <a
+                              href={subscribeUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={() =>
+                                captureLandingEvent("plan_cta_click", {
+                                  planName: plan.name,
+                                })
+                              }
+                            >
+                              اشترك الآن
+                            </a>
+                          </Button>
+                        </CardFooter>
+                      </Card>
+                    </motion.div>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
         )}
       </div>
     </section>
